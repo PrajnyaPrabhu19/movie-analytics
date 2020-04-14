@@ -72,7 +72,7 @@ def buildMovieDict(line):
 def parseCSV(filePath):
     #TODO: check if the filepath is valid and the file exists
 
-    with open(filePath) as f:
+    with open(filePath, encoding="utf8") as f:
         movies = []
         next(f)
         for line in f:
