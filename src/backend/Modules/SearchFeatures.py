@@ -5,9 +5,11 @@
 
 
 ###
-    ## fetchMoviesByPopularity function returns all movies whose popularity is higher/lesser or eaqual than the search_query
+    ## fetchMoviesByNumericSearch function returns all movies whose search_field is higher/lesser or eaqual than the search_query
+    ## This is a generic function which will accept a search_field whose value is numeric and returns data whise values satisfy the
+    ## search_inequality with the search_query
 ###
-def fetchMoviesByPopularity(search_field, search_query, search_inequality, moviesData):
+def fetchMoviesByNumericSearch(search_field, search_query, search_inequality, moviesData):
     # Code for operations
     operations = {
         '0': '=',
@@ -28,6 +30,24 @@ def fetchMoviesByPopularity(search_field, search_query, search_inequality, movie
     return responseObject
 
 ###
+    ## fetchMoviesByTextSearchfunction returns all movies whose search_field matches the search_query
+    ## This is a generic function which handles text search_field
+###
+def fetchMoviesByTextSearch(search_field, search_query, moviesData):
+    responseObject = []
+
+    for movie in moviesData:
+        # check if the search field is genre as it is a list
+        if search_field=='genre':
+            if search_query in moviesData[search_field]:
+                responseObject.append(movie)
+        else:
+            if movie[search_field] == search_query:
+                responseObject.append(movie)
+
+    return responseObject
+
+###
     ## searchFlopMovies function returns list of all movies whose budget is more than revenue
 ###
 def searchFlopMovies(year, moviesData):
@@ -35,8 +55,8 @@ def searchFlopMovies(year, moviesData):
     for movie in moviesData:
         if movie['release_year'] == year:
             if float(movie['budget']) > float(movie['revenue']):
+                responseObject.append(movie)
 
-                responseObject.append(movie['original_title'])
     return responseObject
 
 ###

@@ -1,3 +1,4 @@
+import os
 ###
     # Function to split the string from a column in dataset into multiple items and add it to a list
 ###
@@ -70,14 +71,17 @@ def buildMovieDict(line):
 ###
 
 def parseCSV(filePath):
-    #TODO: check if the filepath is valid and the file exists
+    isFile = os.path.isfile(filePath)
+    movies = []
+    if isFile:
 
-    with open(filePath, encoding="utf8") as f:
-        movies = []
-        next(f)
-        for line in f:
-            data = buildMovieDict(line)
-            movies.append(data)
+        with open(filePath, encoding="utf8") as f:
+            next(f)
+            for line in f:
+                data = buildMovieDict(line)
+                movies.append(data)
 
-    f.close()
+        f.close()
+    else:
+        movies.append("Invalid filepath passed or no such file exists")
     return movies
