@@ -35,6 +35,22 @@ def searchFlopMovies(year, moviesData):
     for movie in moviesData:
         if movie['release_year'] == year:
             if float(movie['budget']) > float(movie['revenue']):
-                responseObject.append(movie['original_title'])
 
+                responseObject.append(movie['original_title'])
+    return responseObject
+
+###
+    ## searchHighestGrossing function returns the highest grossing movie (revenue - budget) of the year
+###
+def highestGrossingMovie(year, moviesData):
+    responseObject = ""
+    _grossIncome = 0
+    maxGross = 0
+    # For now just returns title of movie, may change to return list with additional info
+    for movie in moviesData:
+        if movie['release_year'] == year:
+            _grossIncome = float(movie['revenue']) - float(movie['budget'])
+            if _grossIncome > maxGross:
+                maxGross = _grossIncome
+                responseObject = movie['original_title']
     return responseObject
