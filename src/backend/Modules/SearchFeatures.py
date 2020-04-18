@@ -3,7 +3,6 @@
 ###
 
 
-
 ###
     ## fetchMoviesByPopularity function returns all movies whose popularity is higher/lesser or eaqual than the search_query
 ###
