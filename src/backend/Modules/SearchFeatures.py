@@ -37,13 +37,17 @@ def fetchMoviesByTextSearch(search_field, search_query, moviesData):
 
     for movie in moviesData:
         # check if the search field is genre as it is a list
-        if search_field=='genre':
-            if search_query in moviesData[search_field]:
+        if type(movie[search_field])==list:
+            stringList=""
+            for item in movie[search_field]:
+                stringList+=item
+            if search_query.lower() in stringList.lower():
                 responseObject.append(movie)
         else:
-            if movie[search_field] == search_query:
+            if  search_query.lower() in movie[search_field].lower():
                 responseObject.append(movie)
-
+    #if len(responseObject) ==0:
+        #responseObject.append({"message":"No search results for given criteria"})
     return responseObject
 
 ###
