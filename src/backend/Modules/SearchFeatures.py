@@ -11,7 +11,7 @@
 def fetchMoviesByNumericSearch(search_field, search_query, search_inequality, moviesData):
     # Code for operations
     operations = {
-        '0': '=',
+        '0': '==',
         '1': '>',
         '2': '>=',
         '3': '<',

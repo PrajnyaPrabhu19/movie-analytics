@@ -32,27 +32,38 @@
     </header>
 
     <div class="container">
-      <div class="row align-items-center ">
-        <div class="col-12 col-md-2">Select Field</div>
-        <div class="col-12 col-md-2" id="dropDown"></div>
+      <div class="row-content">
+      <div class="row align-items-center  ">
+        <div class="col-12 col-md-1 text-right">Field:</div>
+        <div class="col-12 col-md text-left " id="dropDown"></div>
+      </div>
+      <br>
+      <div id='textQuery' class="row align-items-center text-right">
+        <div class="col-12 col-md-1 text-right">Query:</div>
+        <div class="col-12 col-md text-left"><input type="text" id='textQueryField'></div>
       </div>
 
-      <div id='textQuery' class="row align-items-center">
-        <div>Query:</div>
-        <div><input type="text"></div>
-      </div>
       <div id='numQuery' class="row align-items-center">
-        <div>Budget</div>
-        <div>>=</div>
-      </div>
+        <div class="col-12 col-md-1 text-right" id="numQueryTitle">Budget</div>
+        <div class="col-12 col-md-1 text-left"><select id="ineqSelector">
+            <option value="0">=</option>
+            <option value="1">></option>
+            <option value="2=">>=</option>
+            <option value="3">&lt</option>
+            <option value="4=">&lt=</option>
 
+        </select></div>
+        <div><input type="text" id='numQueryField'></div>
+      </div>
+      <br>
       <div class="row align-items-center">
-        <div class="col-12 col-md-2">
-          <button type="button" class="btn btn-primary" onCLick=go()>Primary</button>
+          <div class="col-12 col-md-1 "></div>
+        <div class="col col-md text-left" >
+          <button type="button" class="btn btn-primary " onCLick=go()>Search</button>
         </div>
       </div>
-
-
+    </div>
+    <br>
       <div class="row align-items-center"></div>
       <table class="table ">
           <thead>
@@ -75,6 +86,9 @@
 
       //Data from the query
       var data;
+
+      //current search field
+      var searchField = 'id';
 
       //Initial setting to hide the query options
       $('#textQuery').show()
@@ -106,17 +120,22 @@
           s.appendTo("#dropDown");
 
           $("#fieldSelector").change(function () {
+            searchField=this.options[this.selectedIndex].text
             if(this.value=='numeric'){
               $('#textQuery').hide()
               $('#numQuery').show()
-              isNumeric = !isNumeric;
+              document.getElementById("numQueryTitle").innerText = searchField
+              isNumeric = true;
 
             }
             else{
               $('#textQuery').show()
               $('#numQuery').hide()
-              isNumeric = !isNumeric;
+              isNumeric = false;
             }
+
+          console.log(searchField)
+          console.log(isNumeric)
           });
         }
       };
@@ -130,12 +149,27 @@
 
       function go(){    
         
- 
+
+        $('#bodyBoy').children().remove()
+
+        let urlString='http://localhost:5000/'
+
+        if(isNumeric){
+          urlString+='searchNumeric?search_field='+searchField+'&search_inequality='+document.getElementById("ineqSelector").value+'&search_query='+document.getElementById("numQueryField").value
+        }
+        else{
+          urlString+='searchText?search_field='+searchField+'&search_query='+document.getElementById("textQueryField").value
+        }
+        
+        console.log(urlString)
+
+
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
           // Typical action to be performed when the document is ready:
           let records = JSON.parse(xhttp.responseText);
+          console.log(records)
           records.forEach(element => {
           
           let dataStr = '<tr>'
@@ -152,7 +186,7 @@
 
         }
       };
-      xhttp.open("GET", "http://localhost:5000/searchNumeric?search_field=popularity&search_query=28&search_inequality=1", true);
+      xhttp.open("GET",urlString, true);
       xhttp.send();
       }
 
