@@ -3,7 +3,6 @@
 ###
 
 
-
 ###
     ## fetchMoviesByNumericSearch function returns all movies whose search_field is higher/lesser or eaqual than the search_query
     ## This is a generic function which will accept a search_field whose value is numeric and returns data whise values satisfy the

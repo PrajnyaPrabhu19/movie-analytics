@@ -10,16 +10,37 @@ from flask import jsonify
 import json
 
 app = Flask(__name__)
+app.config['JSON_SORT_KEYS'] = False
 CORS(app)
 
 filePath = os.path.abspath(os.path.dirname(os.path.abspath(__file__))) + "/Data/tmdb_movies.csv"
 moviesData = ParseDataset.parseCSV(filePath)
 
-@app.route('/testConnection', methods=['GET'])
+@app.route('/headers', methods=['GET'])
 def getData():
-
-    print(request.headers)
-    return 'Hello Message!'
+    response = {
+        'id': 'text',
+        #'imdb_id': 'text',
+        #'popularity': 'numeric',
+        'budget': 'numeric',
+        'revenue': 'numeric',
+        'original_title': 'text',
+        'cast': 'text',
+        #'homepage': 'text',
+        #'director': 'text',
+        #'tagline': 'text',
+        #'keywords': 'text',
+        'runtime': 'numeric',
+        #'genres': 'text',
+        #'production_companies': 'text',
+        #'release_date': 'text',
+        #'vote_count': 'numeric',
+        #'vote_average': 'numeric',
+        #'release_year': 'numeric',
+        #'budget_adj': 'numeric',
+        #'revenue_adj': 'numeric'
+    }
+    return jsonify(response)
 
 @app.route('/searchNumeric', methods=['GET']) 
 def search():
