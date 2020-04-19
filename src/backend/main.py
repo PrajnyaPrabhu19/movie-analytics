@@ -77,6 +77,12 @@ def grossMovie():
     responseObject = SearchFeatures.highestGrossingMovie(search_year, moviesData)
     return jsonify(responseObject)
 
+@app.route('/highestGrossingDirector', methods=['GET'])
+def grossDirector():
+    # Get all the parameters from the URL string
+    search_year = request.args.get('search_year')
+    responseObject = SearchFeatures.highestGrossingDirector(search_year, moviesData)
+    return jsonify(responseObject)
 
 if __name__ == '__main__':
     app.run()
