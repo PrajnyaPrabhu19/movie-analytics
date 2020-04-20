@@ -19,7 +19,35 @@
     <title>Ristorante Con Fusion</title>
   </head>
 
+
+
   <body>
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Bootstrap Sidebar</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                <p>Dummy Heading</p>
+                <li class="active">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+                </li>
+                <li>
+                    <a href="#">About</a>
+                </li>
+                <li>
+                    <a href="#">Portfolio</a>
+                </li>
+                <li>
+                    <a href="#">Contact</a>
+                </li>
+            </ul>
+        </nav>
+
+    <div id="content">
+
     <header class="jumbotron" align="center">
       <div class="container">
         <div class="row row-header">
@@ -28,20 +56,25 @@
           </div>
           <div class="col col-md"></div>
         </div>
-      </div>
+      </div> 
     </header>
 
     <div class="container" align="center">
+
       <div class="row-content">
       <div class="row align-items-center  ">
         <div class="col-12 col-md-1 text-right">Field:</div>
         <div class="col-12 col-md text-left " id="dropDown"></div>
       </div>
+
       <br>
+
       <div id='textQuery' class="row align-items-center text-right">
         <div class="col-12 col-md-1 text-right">Query:</div>
         <div class="col-12 col-md text-left"><input type="text" id='textQueryField'></div>
       </div>
+
+
 
       <div id='numQuery' class="row align-items-center">
         <div class="col-12 col-md-1 text-right" id="numQueryTitle">Budget</div>
@@ -55,28 +88,32 @@
         </select></div>
         <div><input type="text" id='numQueryField'></div>
       </div>
-      <br>
-      <div class="row align-items-center">
-          <div class="col-12 col-md-1 "></div>
-        <div class="col col-md text-left" >
-          <button type="button" class="btn btn-primary " onCLick=go()>Search</button>
-        </div>
+
+
+    <br>
+    <div class="row align-items-center">
+      <div class="col-12 col-md-1 "></div>
+      <div class="col col-md text-left" >
+        <button type="button" class="btn btn-primary " onCLick=go()>Search</button>
       </div>
     </div>
+
+    </div>
+
     <br>
       <div class="row align-items-center"></div>
       <table class="table ">
-          <thead>
-            <tr id='headerRow'>
-
-            </tr>
+        <thead>
+          <tr id='headerRow'>
+          </tr>
           </thead>
           <tbody id="bodyBoy">
-
           </tbody>
-        </table>
-        </div>
+      </table>
+      </div>
     </div>
+    </div>
+
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS. -->
     <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
