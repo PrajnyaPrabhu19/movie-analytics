@@ -92,3 +92,23 @@ def highestGrossingDirector(year, moviesData):
                 highestProfit = _movieProfit
                 responseObject = movie['director']
     return responseObject
+
+def highestGrossingActorYear(year, moviesData):
+    actorDict = {}
+    responseObject = ""
+    for movie in moviesData:
+        if movie['release_year'] == year:
+            rev = float(movie['revenue'])
+            for i in movie['cast']:
+                if i in actorDict.keys():
+                    actorDict[i] += rev
+                else:
+                    actorDict[i] = rev
+    responseObject = max(actorDict, key=lambda k: actorDict[k])
+    return responseObject
+
+
+
+
+
+
