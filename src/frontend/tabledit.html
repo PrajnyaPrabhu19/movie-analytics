@@ -116,24 +116,22 @@
       </div>
     </div>
 
-    <!-- jQuery first, then Popper.js, then Bootstrap JS. -->
-    <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
-    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.5.0.min.js"
+      integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+
     <script src="jquery-tabledit-1.2.3/jquery.tabledit.js"></script>
 
     <script>
-      $("#movieTable").Tabledit({
-        url: "example.php",
-        editButton: false,
-        deleteButton: false,
-        hideIdentifier: true,
-        columns: {
-          identifier: [0, "id"],
-          editable: [[2, "firstname"], [3, "lastname"]]
-        }
-      });
-
       //Data from the query
       var data;
 
@@ -157,7 +155,7 @@
           Object.keys(data).forEach(item => {
             $("#headerRow").append("<th>" + item + "</th>");
           });
-          $("#headerRow").append("<th>" + "</th>");
+
           for (var val in Object.keys(data)) {
             $("<option />", {
               text: Object.keys(data)[val],
@@ -189,6 +187,9 @@
       xhttp.send();
       var s = $("<select id='fieldSelector'/>");
 
+      function edit() {
+        alert("YOYO");
+      }
       function go() {
         $("#bodyBoy")
           .children()
@@ -225,14 +226,14 @@
               Object.keys(data).forEach(item => {
                 dataStr += "<td>" + element[item] + "</td>";
               });
-              dataStr += "<td></td></tr>";
+              dataStr += "</tr>";
               $("#bodyBoy").append(dataStr);
             });
+
+            //editable: [[1, "budget"], [2, "revenue"], [3, "original_title"]]
+
             $("#movieTable").Tabledit({
-              url: "http://localhost:5000",
-              editButton: false,
-              deleteButton: false,
-              hideIdentifier: true,
+              url: "example.php",
               columns: {
                 identifier: [0, "id"],
                 editable: [[1, "budget"], [2, "revenue"], [3, "original_title"]]
