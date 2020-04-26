@@ -14,6 +14,17 @@
       rel="stylesheet"
       href="node_modules/bootstrap/dist/css/bootstrap.min.css"
     />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css"
+    />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css"
+    />
+
     <link rel="stylesheet" href="css/styles.css" />
 
     <title>Ristorante Con Fusion</title>
@@ -106,17 +117,18 @@
 
           <br />
           <div class="row align-items-center"></div>
-          <table id="movieTable" class="table ">
+          <div id="jsGrid"></div>
+          <!-- <table id="movieTable" class="table ">
             <thead>
               <tr id="headerRow"></tr>
             </thead>
             <tbody id="bodyBoy"></tbody>
-          </table>
+          </table> -->
         </div>
       </div>
     </div>
 
-    <script
+    <!-- <script
       src="https://code.jquery.com/jquery-3.5.0.min.js"
       integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
       crossorigin="anonymous"
@@ -127,9 +139,15 @@
       rel="stylesheet"
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
       crossorigin="anonymous"
-    />
-
-    <script src="jquery-tabledit-1.2.3/jquery.tabledit.js"></script>
+    /> -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS. -->
+    <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
+    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"
+    ></script>
 
     <script>
       //Data from the query
@@ -221,47 +239,57 @@
             // Typical action to be performed when the document is ready:
             let records = JSON.parse(xhttp.responseText);
             console.log(records);
-            records.forEach(element => {
-              let dataStr = "<tr>";
-              Object.keys(data).forEach(item => {
-                dataStr += "<td>" + element[item] + "</td>";
-              });
-              dataStr += "</tr>";
-              $("#bodyBoy").append(dataStr);
-            });
+            $("#jsGrid").jsGrid({
+              width: "100%",
+              height: "400px",
 
-            //editable: [[1, "budget"], [2, "revenue"], [3, "original_title"]]
+              inserting: true,
+              editing: true,
+              sorting: true,
+              paging: true,
 
-            $("#movieTable").Tabledit({
-              url: "example.php",
-              columns: {
-                identifier: [0, "id"],
-                editable: [[1, "budget"], [2, "revenue"], [3, "original_title"]]
-              },
-              onDraw: function() {
-                console.log("onDraw()");
-              },
-              onSuccess: function(data, textStatus, jqXHR) {
-                console.log("onSuccess(data, textStatus, jqXHR)");
-                console.log(data);
-                console.log(textStatus);
-                console.log(jqXHR);
-              },
-              onFail: function(jqXHR, textStatus, errorThrown) {
-                console.log("onFail(jqXHR, textStatus, errorThrown)");
-                console.log(jqXHR);
-                console.log(textStatus);
-                console.log(errorThrown);
-              },
-              onAlways: function() {
-                console.log("onAlways()");
-              },
-              onAjax: function(action, serialize) {
-                console.log("onAjax(action, serialize)");
-                console.log(action);
-                console.log(serialize);
+              data: records,
+              //
+              fields: [
+                {
+                  name: "id",
+                  type: "text",
+                  width: 40,
+                  validate: "required",
+                  align: "left"
+                },
+                { name: "budget", type: "number", width: 60 },
+                { name: "revenue", type: "text", width: 60 },
+
+                { name: "original_title", type: "text", width: 110 },
+                { name: "cast", type: "text", width: 140 },
+                { name: "runtime", type: "text", width: 36 },
+
+                { type: "control", width: 30 }
+              ],
+              onItemInserting: function(args) {
+                console.log(args);
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                  if (this.readyState == 4 && this.status == 200) {
+                    // Typical action to be performed when the document is ready:
+                    data = JSON.parse(xhttp.responseText);
+                    console.log(data);
+                  }
+                };
+
+                xhttp.open("POST", "http://localhost:5000/insertData", true);
+                xhttp.send(args["item"]);
               }
             });
+            // records.forEach(element => {
+            //   let dataStr = "<tr>";
+            //   Object.keys(data).forEach(item => {
+            //     dataStr += "<td>" + element[item] + "</td>";
+            //   });
+            //   dataStr += "</tr>";
+            //   $("#bodyBoy").append(dataStr);
+            // });
           }
         };
         xhttp.open("GET", urlString, true);
