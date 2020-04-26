@@ -1,6 +1,7 @@
 import os
 from Modules import ParseDataset
 from Modules import SearchFeatures
+from Modules import DatasetOperations
 
 from flask import Flask
 from flask import request
@@ -91,6 +92,13 @@ def highestPaidActor():
     responseObject = SearchFeatures.highestGrossingActorYear(search_year, moviesData)
     return jsonify(responseObject)
 
+@app.route('/insertData', methods =['POST'])
+def insertData():
+    data = request.args.get('insert_data')
+    final_data = eval(data)
+    response = DatasetOperations.insertMovie(final_data, moviesData)
+    print(str(response))
+    return jsonify(response)
 
 if __name__ == '__main__':
     app.run()
