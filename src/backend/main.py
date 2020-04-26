@@ -96,9 +96,9 @@ def highestPaidActor():
 def insertData():
     data = request.args.get('insert_data')
     final_data = eval(data)
-    response = DatasetOperations.insertMovie(final_data, moviesData)
-    print(str(response))
-    return jsonify(response)
+    global moviesData
+    moviesData = DatasetOperations.insertMovie(final_data, moviesData)
+
 
 if __name__ == '__main__':
     app.run()
