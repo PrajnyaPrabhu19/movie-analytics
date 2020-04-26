@@ -94,7 +94,7 @@ def highestPaidActor():
 
 @app.route('/insertData', methods =['POST'])
 def insertData():
-    data = request.args.get('insert_data')
+    data = request.data
     final_data = eval(data)
     global moviesData
     moviesData = DatasetOperations.insertMovie(final_data, moviesData)
