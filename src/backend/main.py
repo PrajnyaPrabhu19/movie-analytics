@@ -98,7 +98,7 @@ def insertData():
     final_data = eval(data)
     global moviesData
     moviesData = DatasetOperations.insertMovie(final_data, moviesData)
-
+    return jsonify({'message':'success'})
 
 if __name__ == '__main__':
     app.run()

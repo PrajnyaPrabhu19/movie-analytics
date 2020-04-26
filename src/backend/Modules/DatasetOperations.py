@@ -13,7 +13,7 @@ def getMaxId(moviesData):
 def insertMovie(data, moviesData):
     #construct the dictionary
     movie = {}
-    if data.has_key('id'):
+    if 'id' in data:
         movie['id'] = data['id']
     else:
         #get the max id from the moviesdata and add 1 to it to have a unique id
