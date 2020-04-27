@@ -31,7 +31,6 @@ def insertMovie(data, moviesData):
 ###
     ## updateMovie() function will allow user to update an existing row in the dataset.
     ## Finds correct movie using a specified ID or movie title.
-    ##
 ###
 def updateMovie(data, moviesData):
     # Search by movie id or title
@@ -47,4 +46,14 @@ def updateMovie(data, moviesData):
             for key in data:
                 movie[key] = data[key]
 
+    return moviesData
+
+
+###
+    ## deleteMovie function will allow user to delete the movie by id. The user will select the movie from the list displayed on the
+    ## UI and click on delete button. 
+###
+def deleteMovie(data, moviesData):
+    movie_id = data['id']
+    moviesData = list(filter(lambda i: i['id'] != movie_id, moviesData))
     return moviesData

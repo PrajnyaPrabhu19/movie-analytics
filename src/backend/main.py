@@ -14,7 +14,7 @@ app = Flask(__name__)
 app.config['JSON_SORT_KEYS'] = False
 CORS(app)
 
-filePath = os.path.abspath(os.path.dirname(os.path.abspath(__file__))) + "/Data/test_dataset.csv"
+filePath = os.path.abspath(os.path.dirname(os.path.abspath(__file__))) + "/Data/tmdb_movies.csv"
 moviesData = ParseDataset.parseCSV(filePath)
 
 @app.route('/headers', methods=['GET'])
@@ -107,6 +107,13 @@ def editData():
     global moviesData
     moviesData = DatasetOperations.updateMovie(new_data, moviesData)
     return jsonify({'message':'update successful'})
+
+@app.route('/deleteMovie', methods = ['POST'])
+def deleteData():
+    data = request.data
+    global moviesData
+    moviesData = DatasetOperations.deleteMovie(eval(data), moviesData)
+    return jsonify({'message':'deleted successfully'})
 
 if __name__ == '__main__':
     app.run()
