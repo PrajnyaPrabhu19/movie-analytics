@@ -26,3 +26,13 @@ def insertMovie(data, moviesData):
     moviesData.append(movie)
 
     return moviesData
+
+
+###
+    ## deleteMovie function will allow user to delete the movie by id. The user will select the movie from the list displayed on the
+    ## UI and click on delete button. 
+###
+def deleteMovie(data, moviesData):
+    movie_id = data['id']
+    moviesData = list(filter(lambda i: i['id'] != movie_id, moviesData))
+    return moviesData

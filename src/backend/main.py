@@ -100,5 +100,12 @@ def insertData():
     moviesData = DatasetOperations.insertMovie(final_data, moviesData)
     return jsonify({'message':'success'})
 
+@app.route('/deleteMovie', methods = ['POST'])
+def deleteData():
+    data = request.data
+    global moviesData
+    moviesData = DatasetOperations.deleteMovie(eval(data), moviesData)
+    return jsonify({'message':'deleted successfully'})
+
 if __name__ == '__main__':
     app.run()
