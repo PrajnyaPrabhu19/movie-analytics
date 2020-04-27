@@ -26,3 +26,18 @@ def insertMovie(data, moviesData):
     moviesData.append(movie)
 
     return moviesData
+
+
+###
+    ## updateMovie() function will allow user to update an existing row in the dataset.
+    ## Finds correct movie using a specified ID or movie title.
+###
+def updateMovie(data, moviesData):
+    for movie in moviesData:
+        # Find movie to be updated
+        if (movie['id'] == data['id']) or (movie['original_title'] == data['original_title']):
+            # Update movie with new values
+            for key in data:
+                movie[key] = data[key]
+    moviesData.update(movie)
+    return moviesData
