@@ -2,6 +2,7 @@ import os
 from Modules import ParseDataset
 from Modules import SearchFeatures
 from Modules import DatasetOperations
+from Modules import AnalyticsFeatures
 
 from flask import Flask
 from flask import request
@@ -68,7 +69,7 @@ def searchText():
 def FlopMovies():
     # Get all the parameters from the URL string
     search_year = request.args.get('search_year')
-    responseObject = SearchFeatures.searchFlopMovies(search_year, moviesData)
+    responseObject = AnalyticsFeatures.searchFlopMovies(search_year, moviesData)
     return jsonify(responseObject[-10:])
 
 @app.route('/highestGrossingMovie', methods=['GET'])
@@ -117,7 +118,7 @@ def deleteData():
 
 @app.route('/aggregateMoviesBR', methods =['GET'])
 def aggregateMovies():
-    responseObject = SearchFeatures.moviesAggregate(moviesData)
+    responseObject = AnalyticsFeatures.moviesAggregate(moviesData)
     return jsonify(responseObject)
 
 if __name__ == '__main__':

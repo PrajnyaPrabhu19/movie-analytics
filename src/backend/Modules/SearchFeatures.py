@@ -50,22 +50,6 @@ def fetchMoviesByTextSearch(search_field, search_query, moviesData):
         #responseObject.append({"message":"No search results for given criteria"})
     return responseObject
 
-###
-    ## searchFlopMovies function returns list of all movies whose budget is more than revenue
-###
-def searchFlopMovies(year, moviesData):
-    responseObject = []
-    for movie in moviesData:
-        if movie['release_year'] == year:
-            if float(movie['budget']) > float(movie['revenue']):
-                if float(movie['revenue']) != 0:
-                    diff = float(movie['budget'])- float(movie['revenue'])
-                    movie['loss'] = diff
-                    responseObject.append(movie)
-
-    responseObject = sorted(responseObject, key = lambda i:i['loss'],reverse=True)
-    responseObject = responseObject[:10]
-    return responseObject
 
 ###
     ## highestGrossingMovie function returns the highest grossing movie (revenue - budget) of the year
@@ -112,60 +96,3 @@ def highestGrossingActorYear(year, moviesData):
     responseObject = max(actorDict, key=lambda k: actorDict[k])
     return responseObject
 
-def moviesAggregate(moviesData):
-    response =[]
-    #myMax = max(movie['release_year'] for movie in moviesData)
-    #print(myMax)
-    #myMin = min(movie['release_year'] for movie in moviesData)
-    #print(myMin)
-    myMin =1960
-    myMax = 2015
-    diff = float(myMax)-float(myMin)
-    window = round(diff/5)
-    movie1 = {}
-    budget1 =0
-    budget2=0
-    budget3=0
-    budget4=0
-    budget5=0
-    revenue1 =0
-    revenue2 =0
-    revenue3 =0
-    revenue4 =0
-    revenue5 =0
-    for movie in moviesData:
-        if movie['release_year'].isnumeric():
-            if float(movie['release_year']) <= 1970:
-                budget1 += float(movie['budget'])
-                revenue1 += float(movie['revenue'])
-            if float(movie['release_year']) >= 1971:
-                if float(movie['release_year']) <=1981:
-                    budget2 += float(movie['budget'])
-                    revenue2 += float(movie['revenue'])
-            if float(movie['release_year']) >= 1982:
-                if float(movie['release_year']) <=1992:
-                    budget3 += float(movie['budget'])
-                    revenue3 += float(movie['revenue'])
-            if float(movie['release_year']) >=1993:
-                if float(movie['release_year']) <=2004:
-                    budget4 += float(movie['budget'])
-                    revenue4 += float(movie['revenue'])
-            if float(movie['release_year']) >= 2005:
-                budget5 += float(movie['budget'])
-                revenue5 += float(movie['revenue'])
-    year1 = "1960-1970"
-    item1 = {"year":year1, "budget":budget1, "revenue":revenue1}
-    response.append(item1)
-    year2 = "1971-1981"
-    item2 = {"year": year2, "budget": budget2, "revenue": revenue2}
-    response.append(item2)
-    year3 = "1982-1992"
-    item3 = {"year": year3, "budget": budget3, "revenue": revenue3}
-    response.append(item3)
-    year4 = "1993-2003"
-    item4 = {"year": year4, "budget": budget4, "revenue": revenue4}
-    response.append(item4)
-    year5 = "2004-2015"
-    item5 = {"year": year5, "budget": budget5, "revenue": revenue5}
-    response.append(item5)
-    return response
