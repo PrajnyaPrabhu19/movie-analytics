@@ -89,15 +89,15 @@
               </div>
             </div>
           </span>
-          <span id="wmovieList" class="col-md">
+          <span class="col-md">
             
             <div
-            class="card text-white bg-dark mt-3 mb-3 mr-3"
+            class="card text-white bg-secondary mt-3 mb-3 mr-3"
             >
             <div class="card-header">
               <h2>Flop Movies of 2019</h2>
             </div>
-            <div class="card-body">
+            <div  id="wmovieList" class="card-body">
               
             </div>
           </div>
@@ -123,13 +123,13 @@
             
             $('#wmovieList').append(
            
-              '<div class="card text-dark bg-light pt-1 pb-1 pl-1 pr-1">\
+              '<div class="card  text-dark bg-light pt-1 pb-1 pl-1 pr-1" style="max-width: 36rem;">\
 \
                 <div class="media">\
                \
                   <img src="http://img.omdbapi.com/?i=' +imdb_id+'&apikey=a238dc08" class="align-self-start mr-3" height="150" width="100" alt="...">\
                   <div class="media-body">\
-                  <h5 class="card-title">' +movie_title+'</h5>\
+                  <h5 class="card-title"><strong>' +movie_title+'</strong></h5>\
                   <h6>Rating: 0.7</h6>\
                   <p class="card-text">\
                    '+tagline+
