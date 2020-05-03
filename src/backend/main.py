@@ -115,5 +115,10 @@ def deleteData():
     moviesData = DatasetOperations.deleteMovie(eval(data), moviesData)
     return jsonify({'message':'deleted successfully'})
 
+@app.route('/aggregateMoviesBR', methods =['GET'])
+def aggregateMovies():
+    responseObject = SearchFeatures.moviesAggregate(moviesData)
+    return jsonify(responseObject)
+
 if __name__ == '__main__':
     app.run()
