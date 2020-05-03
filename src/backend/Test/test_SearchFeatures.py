@@ -21,12 +21,6 @@ class TestSearchFeatures(unittest.TestCase):
         self.assertEqual(response[0]['original_title'], 'Mad Max: Fury Road', "The returned response should contain movie Mad Max: Fury Road")
 
 
-    def test_searchFlopMovies(self):
-        year = '2015'
-        response = Modules.SearchFeatures.searchFlopMovies(year, movies)
-        self.assertEqual(response[0]['original_title'], 'Wild Card', "The returned response should contain movie Wild Card")
-
-
 filepath = os.path.abspath(os.path.dirname(os.path.abspath(__file__))) + "/Data/test_dataset.csv"
 movies = Modules.ParseDataset.parseCSV(filepath)
 

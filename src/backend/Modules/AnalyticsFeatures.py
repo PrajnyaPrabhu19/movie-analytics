@@ -114,3 +114,36 @@ def searchFlopMovies(year, moviesData):
         responseObject = sorted(responseObject, key = lambda i:i['loss'],reverse=True)
         responseObject = responseObject[:10]
         return responseObject
+
+###
+    ## highestGrossingMovie function returns the highest grossing movie (revenue - budget) of the year
+###
+def highestGrossingMovie(year, moviesData):
+    responseObject = []
+    _grossIncome = 0
+    maxGross = 0
+    if year == '':
+        item ={}
+        for movie in moviesData:
+            if float(movie['budget']) < float(movie['revenue']):
+                if float(movie['budget'])>0:
+                    diff = float(movie['revenue']) - float(movie['budget'])
+                    if diff > maxGross:
+                            maxGross = diff
+                            item = movie
+        item['profit'] = maxGross
+        responseObject.append(item)
+        return responseObject
+
+    else:
+        for movie in moviesData:
+            if movie['release_year'] == year:
+                if float(movie['budget']) < float(movie['revenue']):
+                    if float(movie['budget']) != 0:
+                        diff = float(movie['revenue']) - float(movie['budget'])
+                        movie['profit'] = diff
+                        responseObject.append(movie)
+
+        responseObject = sorted(responseObject, key=lambda i: i['profit'], reverse=True)
+        responseObject = responseObject[:10]
+        return responseObject

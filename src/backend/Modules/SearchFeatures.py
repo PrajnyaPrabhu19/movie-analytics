@@ -54,6 +54,7 @@ def fetchMoviesByTextSearch(search_field, search_query, moviesData):
 ###
     ## highestGrossingMovie function returns the highest grossing movie (revenue - budget) of the year
 ###
+## THIS FUNCTION IS REWRITTEN IN ANALYTICSFEATUIRES.PY FILE WHERE WE RETURN ONE MOVIE ITEM OR TOP 10 MOVIES
 def highestGrossingMovie(year, moviesData):
     responseObject = ""
     _grossIncome = 0
