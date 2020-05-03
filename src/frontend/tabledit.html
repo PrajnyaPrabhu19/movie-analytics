@@ -39,15 +39,6 @@
         </div>
 
         <ul class="list-unstyled components">
-          <li class="active">
-            <a
-              href="#homeSubmenu"
-              data-toggle="collapse"
-              aria-expanded="false"
-              class="dropdown-toggle"
-              >Home</a
-            >
-          </li>
           <li>
             <a href="#">Movie Analytics</a>
           </li>
@@ -74,9 +65,9 @@
 
         <div class="container" align="center">
           <div class="row-content">
-            <div class="row align-items-center  ">
+            <div class="row align-items-center">
               <div class="col-12 col-md-1 text-right">Field:</div>
-              <div class="col-12 col-md text-left " id="dropDown"></div>
+              <div class="col-12 col-md text-left" id="dropDown"></div>
             </div>
 
             <br />
@@ -106,9 +97,9 @@
 
             <br />
             <div class="row align-items-center">
-              <div class="col-12 col-md-1 "></div>
+              <div class="col-12 col-md-1"></div>
               <div class="col col-md text-left">
-                <button type="button" class="btn btn-primary " onCLick="go()">
+                <button type="button" class="btn btn-primary" onCLick="go()">
                   Search
                 </button>
               </div>
@@ -164,26 +155,26 @@
       var isNumeric = false;
 
       var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
+      xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
           // Typical action to be performed when the document is ready:
           data = JSON.parse(xhttp.responseText);
 
           console.log(Object.keys(data));
-          Object.keys(data).forEach(item => {
+          Object.keys(data).forEach((item) => {
             $("#headerRow").append("<th>" + item + "</th>");
           });
 
           for (var val in Object.keys(data)) {
             $("<option />", {
               text: Object.keys(data)[val],
-              value: data[Object.keys(data)[val]]
+              value: data[Object.keys(data)[val]],
             }).appendTo(s);
           }
 
           s.appendTo("#dropDown");
 
-          $("#fieldSelector").change(function() {
+          $("#fieldSelector").change(function () {
             searchField = this.options[this.selectedIndex].text;
             if (this.value == "numeric") {
               $("#textQuery").hide();
@@ -208,10 +199,10 @@
       function edit() {
         alert("YOYO");
       }
-      var deleteData = function(args) {
+      var deleteData = function (args) {
         console.log(args);
         var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
+        xhttp.onreadystatechange = function () {
           if (this.readyState == 4 && this.status == 200) {
             // Typical action to be performed when the document is ready:
             data = JSON.parse(xhttp.responseText);
@@ -221,10 +212,10 @@
         xhttp.open("POST", "http://localhost:5000/deleteMovie", true);
         xhttp.send(JSON.stringify(args["item"]));
       };
-      var insertData = function(args) {
+      var insertData = function (args) {
         console.log(args);
         var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
+        xhttp.onreadystatechange = function () {
           if (this.readyState == 4 && this.status == 200) {
             // Typical action to be performed when the document is ready:
             data = JSON.parse(xhttp.responseText);
@@ -235,10 +226,10 @@
         xhttp.open("POST", "http://localhost:5000/insertData", true);
         xhttp.send(JSON.stringify(args["item"]));
       };
-      var editData = function(args) {
+      var editData = function (args) {
         console.log(args);
         var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
+        xhttp.onreadystatechange = function () {
           if (this.readyState == 4 && this.status == 200) {
             // Typical action to be performed when the document is ready:
             data = JSON.parse(xhttp.responseText);
@@ -251,9 +242,7 @@
       };
 
       function go() {
-        $("#bodyBoy")
-          .children()
-          .remove();
+        $("#bodyBoy").children().remove();
 
         let urlString = "http://localhost:5000/";
 
@@ -276,7 +265,7 @@
         console.log(urlString);
 
         var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
+        xhttp.onreadystatechange = function () {
           if (this.readyState == 4 && this.status == 200) {
             // Typical action to be performed when the document is ready:
             let records = JSON.parse(xhttp.responseText);
@@ -298,7 +287,7 @@
                   type: "text",
                   width: 40,
                   validate: "required",
-                  align: "left"
+                  align: "left",
                 },
                 { name: "budget", type: "number", width: 60 },
                 { name: "revenue", type: "text", width: 60 },
@@ -307,17 +296,17 @@
                 { name: "cast", type: "text", width: 140 },
                 { name: "runtime", type: "text", width: 36 },
 
-                { type: "control", width: 30 }
+                { type: "control", width: 30 },
               ],
-              onItemUpdated: function(args) {
+              onItemUpdated: function (args) {
                 editData(args);
               },
-              onItemDeleting: function(args) {
+              onItemDeleting: function (args) {
                 deleteData(args);
               },
-              onItemInserted: function(args) {
+              onItemInserted: function (args) {
                 insertData(args);
-              }
+              },
             });
           }
         };
