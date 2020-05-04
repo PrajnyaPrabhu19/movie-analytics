@@ -135,5 +135,11 @@ def importData():
     moviesData = ImportExport.importData(eval(data))
     return jsonify({'Imported new data'})
 
+@app.route('/exportData', methods =['GET'])
+def exportData():
+    file_name = request.args.get('file_name')
+    ImportExport.exportData(file_name, moviesData)
+    return jsonify({'Exported data'})
+
 if __name__ == '__main__':
     app.run()
