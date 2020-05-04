@@ -1,11 +1,13 @@
 import os
+from Modules import ParseDataset
 ##
     ## This file contains methods to support import/export functionality
 ##
 
-def importData():
-    filepath = os.path.abspath(os.path.dirname(os.path.abspath(__file__))) + "/Test/Data/test_dataset.csv"
-    return
+def importData(filename):
+    filepath = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/Test/Data/" + filename + ".csv"
+    moviesData = ParseDataset.parseCSV(filepath)
+    return moviesData
 
 def exportData():
 

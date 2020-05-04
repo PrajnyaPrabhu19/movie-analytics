@@ -3,6 +3,7 @@ from Modules import ParseDataset
 from Modules import SearchFeatures
 from Modules import DatasetOperations
 from Modules import AnalyticsFeatures
+from Modules import ImportExport
 
 from flask import Flask
 from flask import request
@@ -126,6 +127,13 @@ def analyticsGenre():
     search_year = request.args.get('search_year')
     responseObject = AnalyticsFeatures.analyticsGrenre(search_year, moviesData)
     return jsonify(responseObject)
+
+@app.route('/importData', methods =['POST'])
+def importData():
+    data = request.data
+    global moviesData
+    moviesData = ImportExport.importData(eval(data))
+    return jsonify({'Imported new data'})
 
 if __name__ == '__main__':
     app.run()
