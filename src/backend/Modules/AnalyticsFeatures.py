@@ -147,3 +147,93 @@ def highestGrossingMovie(year, moviesData):
         responseObject = sorted(responseObject, key=lambda i: i['profit'], reverse=True)
         responseObject = responseObject[:10]
         return responseObject
+
+####
+def analyticsGrenre(year, moviesData):
+    responseObject =[]
+    action = 0
+    thriller =0
+    adventure =0
+    fiction =0
+    drama =0
+    fantasy =0
+    crime =0
+    comedy =0
+    animation =0
+    family =0
+    mystery =0
+    romance =0
+
+    if year=='':
+        for movie in moviesData:
+            if movie['revenue'].isdigit():
+                if movie['budget'].isdigit():
+                    if 'Action' in movie['genres']:
+                        action = action + (float(movie['revenue'])-float(movie['budget']))
+                    if 'Thriller' in movie['genres']:
+                        thriller += (float(movie['revenue'])-float(movie['budget']))
+                    if 'Adventure' in movie['genres']:
+                        adventure += (float(movie['revenue'])-float(movie['budget']))
+                    if 'Science Fiction' in movie['genres']:
+                        fiction += (float(movie['revenue'])-float(movie['budget']))
+                    if 'Drama' in movie['genres']:
+                        drama += (float(movie['revenue'])-float(movie['budget']))
+                    if 'Fantasy' in movie['genres']:
+                        fantasy += (float(movie['revenue'])-float(movie['budget']))
+                    if 'Crime' in movie['genres']:
+                        crime += (float(movie['revenue'])-float(movie['budget']))
+                    if 'Comedy' in movie['genres']:
+                        comedy += (float(movie['revenue'])-float(movie['budget']))
+                    if 'Animation' in movie['genres']:
+                        animation += (float(movie['revenue'])-float(movie['budget']))
+                    if 'Family' in movie['genres']:
+                        family += (float(movie['revenue'])-float(movie['budget']))
+                    if 'Mystery' in movie['genres']:
+                        mystery += (float(movie['revenue'])-float(movie['budget']))
+                    if 'Romance' in movie['genres']:
+                        romance += (float(movie['revenue'])-float(movie['budget']))
+    else:
+        for movie in moviesData:
+            if movie['release_year'] == year:
+                if movie['revenue'].isdigit():
+                    if movie['budget'].isdigit():
+                        if 'Action' in movie['genres']:
+                            action = action + (float(movie['revenue']) - float(movie['budget']))
+                        if 'Thriller' in movie['genres']:
+                            thriller += (float(movie['revenue']) - float(movie['budget']))
+                        if 'Adventure' in movie['genres']:
+                            adventure += (float(movie['revenue']) - float(movie['budget']))
+                        if 'Science Fiction' in movie['genres']:
+                            fiction += (float(movie['revenue']) - float(movie['budget']))
+                        if 'Drama' in movie['genres']:
+                            drama += (float(movie['revenue']) - float(movie['budget']))
+                        if 'Fantasy' in movie['genres']:
+                            fantasy += (float(movie['revenue']) - float(movie['budget']))
+                        if 'Crime' in movie['genres']:
+                            crime += (float(movie['revenue'])- float(movie['budget']))
+                        if 'Comedy' in movie['genres']:
+                            comedy += (float(movie['revenue']) - float(movie['budget']))
+                        if 'Animation' in movie['genres']:
+                            animation += (float(movie['revenue']) - float(movie['budget']))
+                        if 'Family' in movie['genres']:
+                            family += (float(movie['revenue']) - float(movie['budget']))
+                        if 'Mystery' in movie['genres']:
+                            mystery += (float(movie['revenue']) - float(movie['budget']))
+                        if 'Romance' in movie['genres']:
+                            romance += (float(movie['revenue']) - float(movie['budget']))
+
+    responseObject.append({"genre_type": "Action", "total_amt":action})
+    responseObject.append({"genre_type": "Thriller", "total_amt":thriller})
+    responseObject.append({"genre_type": "Adventure", "total_amt": adventure})
+    responseObject.append({"genre_type": "Fiction", "total_amt": fiction})
+    responseObject.append({"genre_type": "Drama", "total_amt": drama})
+    responseObject.append({"genre_type": "Fantasy", "total_amt": fantasy})
+    responseObject.append({"genre_type": "Crime", "total_amt": crime})
+    responseObject.append({"genre_type": "Comedy", "total_amt": comedy})
+    responseObject.append({"genre_type": "Animation", "total_amt": animation})
+    responseObject.append({"genre_type": "Family", "total_amt": family})
+    responseObject.append({"genre_type": "Mystery", "total_amt": mystery})
+    responseObject.append({"genre_type": "Romance", "total_amt": romance})
+    responseObject = sorted(responseObject, key=lambda i: i['total_amt'], reverse=True)
+    record = {"RECORDS":responseObject}
+    return record

@@ -121,5 +121,11 @@ def aggregateMovies():
     responseObject = AnalyticsFeatures.moviesAggregate(moviesData)
     return jsonify(responseObject)
 
+@app.route('/analyticsGrenre', methods =['GET'])
+def analyticsGenre():
+    search_year = request.args.get('search_year')
+    responseObject = AnalyticsFeatures.analyticsGrenre(search_year, moviesData)
+    return jsonify(responseObject)
+
 if __name__ == '__main__':
     app.run()
