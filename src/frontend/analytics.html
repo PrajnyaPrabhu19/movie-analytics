@@ -27,58 +27,46 @@
 
     <link rel="stylesheet" href="css/styles.css" />
 
-    <title>Ristorante Con Fusion</title>
+    <title>Movie Analytics</title>
   </head>
 
   <body>
     <div id="content">
-      <header class="jumbotron">
-        <div class="container">
-          <div class="row row-header">
-            <div class="col-12 col-md-2">
-              <h1>Movie Search</h1>
-            </div>
-            <div class="col col-md-8"></div>
-          </div>
+      <header class="ml-5">
+        <div class="container  fill movie-banner">
+          <!-- <img src="./img/movie_banner.jpg" class="img-fluid" alt="Responsive image"> -->
         </div>
       </header>
       
         <div class="row" >
           <span class="col-md-8">
             <div class="row row-header  mx-auto">
+              <div class="card-columns">
               <div
-                class="card text-white bg-danger col-md-3 mt-3 mb-3 ml-5"
+                class="card"
                 style="max-width: 36rem;"
               >
-                <div class="card-header"><h3>Porst Movie of all time</h3></div>
-                <div class="card-body">
-                  <h5 class="card-title">Danger card title</h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make up
-                    the bulk of the card's content.
-                  </p>
+                <div class="card-header text-white bg-danger"><h3>Worst Movie of all time</h3></div>
+                <div id="wmovie" class="card-body">
+                 
                 </div>
               </div>
               
               <div
-              class="card text-white bg-info col-md-3 ml-5 mt-3 mb-3"
+              class="card"
               style="max-width: 36rem;"
             >
-              <div class="card-header"><h3>Porst Movie of all time</h3></div>
-              <div class="card-body">
-                <h5 class="card-title">Danger card title</h5>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
+              <div class="card-header text-white bg-success"><h3>Best Movie of all time</h3></div>
+              <div id="bmovie" class="card-body">
+              
               </div>
             </div>
 
-              <div
-                class="card  bg-light col-md-3 mt-3 mb-3 ml-5"
+              <!-- <div
+                class="card  bg-light "
                 style="max-width: 36rem;"
               >
-                <div class="card-header">Header</div>
+                <div class="card-header"><h3>Random Stat</h3></div>
                 <div class="card-body">
                   <h5 class="card-title">Success card title</h5>
                   <p class="card-text">
@@ -86,13 +74,41 @@
                     the bulk of the card's content.
                   </p>
                 </div>
+              </div> -->
+            </div>
+          </div>
+            <div class="row row-header">
+
+              <div
+              class="card  bg-light mt-3 mb-3"
+              >
+              <div class="card-header ">
+                <h2>Budget vs Revenue</h2> <span class="badge badge-warning">Revenue</span>
+                <span class="badge badge-secondary">Budget</span>
               </div>
+              <div  class="card-body">
+                <div id="d3id" class="ml-6 pl-3"></div>
+              </div>
+            </div>
+
+            <div
+            class="card  bg-light mt-3 mb-3"
+            >
+            <div class="card-header ">
+              <h2>Genre vs Revenue</h2> 
+            </div>
+            <div  class="card-body">
+              <svg width="1200" height="500"></svg>
+            </div>
+          </div>
+            
+
             </div>
           </span>
           <span class="col-md">
             
             <div
-            class="card text-white bg-secondary mt-3 mb-3 mr-3"
+            class="card  bg-light mt-3 mb-3 mr-3"
             >
             <div class="card-header">
               <h2>Flop Movies of 2019</h2>
@@ -105,50 +121,17 @@
         </div>
         
       
-
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="js/worstMoviesList.js"></script>
+        <script src="js/budgetVersusRevenue.js"></script>
+        <script src="js/singleMovieCards.js"></script>
+        <script src="js/bestGenres.js"></script>
+    
     <script>
-
-
-    var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-          if (this.readyState == 4 && this.status == 200) {
-            // Typical action to be performed when the document is ready:
-            data = JSON.parse(xhttp.responseText);
-
-            for (var i = 0; i < data.length; i++) { 
-            
-            let imdb_id = data[i]['imdb_id']
-            let movie_title = data[i]['original_title'];
-            let tagline = data[i]['tagline'];
-            
-            $('#wmovieList').append(
-           
-              '<div class="card  text-dark bg-light pt-1 pb-1 pl-1 pr-1" style="max-width: 36rem;">\
-\
-                <div class="media">\
-               \
-                  <img src="http://img.omdbapi.com/?i=' +imdb_id+'&apikey=a238dc08" class="align-self-start mr-3" height="150" width="100" alt="...">\
-                  <div class="media-body">\
-                  <h5 class="card-title"><strong>' +movie_title+'</strong></h5>\
-                  <h6>Rating: 0.7</h6>\
-                  <p class="card-text">\
-                   '+tagline+
-                '</p>\
-                </div>\
-                </div>\
-\
-              </div>\
-\
-           ');
-
-            }
-          
-          }
-        };
-
-        xhttp.open("GET", "http://localhost:5000/searchFlopMovies?search_year=2000", true);
-        xhttp.send();
-
+      singelMovieCards();
+    loadWorstMoviesList();
+    loadBudgetVsRevenue();
+    loadbestGenres()
     </script>
 
 
