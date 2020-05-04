@@ -5,7 +5,7 @@ from Modules import ParseDataset
 ##
 
 def importData(filename):
-    filepath = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/Test/Data/" + filename + ".csv"
+    filepath = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/Data/" + filename + ".csv"
     moviesData = ParseDataset.parseCSV(filepath)
     return moviesData
 
