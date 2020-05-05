@@ -12,10 +12,10 @@ def getMaxId(moviesData):
 ###
 def insertMovie(data, moviesData):
     #construct the dictionary with initial values
-    movie = {'imdb_id':'', 'popularity':'', 'budget':'0', 'revenue':'0',
-             'homepage':'','director':'', 'tagline':'', 'keywords':'',
-              'runtime':'0', 'genres':'', 'production_companies':'', 'release_date':'', 'vote_count':'',
-             'vote_average':'', 'release_year':'', 'budget_adj':'', 'revenue_adj':''}
+    movie = {'id': '0', 'imdb_id':'', 'popularity':'', 'budget':'', 'revenue':'', 'original_title':'',
+                  'cast':[],'homepage':'','director':'', 'tagline':'', 'keywords':[],
+                  'runtime':'', 'genres':[], 'production_companies':[], 'release_date':'', 'vote_count':'',
+                  'vote_average':'', 'release_year':'', 'budget_adj':'', 'revenue_adj':''}
 
     if 'id' in data:
         movie['id'] = data['id']
@@ -28,6 +28,7 @@ def insertMovie(data, moviesData):
     for key in data:
         if key!= 'id':
             movie[key] = data[key]
+    print(movie)
     moviesData.append(movie)
     return moviesData
 

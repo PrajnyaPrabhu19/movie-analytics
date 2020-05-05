@@ -11,7 +11,13 @@ from Modules import ParseDataset
     ## The fields include cast, keywords, genres, and production_companies
 ###
 def createString(field_data):
-    listToStr = '|'.join(field_data)
+    try:
+        if type(field_data) == list:
+            listToStr = '|'.join(field_data)
+        else:
+            listToStr = '|'.join(field_data.split(','))
+    except Exception as e:
+        print(e)
     return listToStr
 
 
@@ -42,7 +48,7 @@ def exportData(filename, moviesData):
         for movie in moviesData:
             for key in movie:
                 # Keys that contain lists in their data fields.
-                if key == 'cast' or key == 'keywords' or key == 'genres' or key == 'production_companies':
+                if key == 'cast': #or key == 'keywords'  or key == 'production_companies'  or key == 'genres'
                     row += createString(movie[key])
                     row += ','
                 # Single value keys

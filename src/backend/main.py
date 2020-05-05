@@ -142,5 +142,20 @@ def exportData():
     ImportExport.exportData(file_name, moviesData)
     return jsonify({'status':'Exported data'})
 
+
+@app.route('/exportList', methods =['GET'])
+def exportList():
+    from os import listdir
+    from os.path import isfile, join
+    filepath = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "\\backend\\Data\\"
+    #onlyfiles = [{f:f} for f in listdir(filepath) if isfile(join(filepath,f))]
+    resObject = {}
+    for file in listdir(filepath):
+        if isfile(join(filepath, file)):
+            resObject[file]=file
+
+    return jsonify(resObject)
+
+
 if __name__ == '__main__':
     app.run()
