@@ -11,22 +11,25 @@ def getMaxId(moviesData):
     ## the item is expected to be of type list, then an empty list is appended
 ###
 def insertMovie(data, moviesData):
-    #construct the dictionary
-    movie = {}
+    #construct the dictionary with initial values
+    movie = {'imdb_id':'', 'popularity':'', 'budget':'0', 'revenue':'0',
+             'homepage':'','director':'', 'tagline':'', 'keywords':'',
+              'runtime':'0', 'genres':'', 'production_companies':'', 'release_date':'', 'vote_count':'',
+             'vote_average':'', 'release_year':'', 'budget_adj':'', 'revenue_adj':''}
+
     if 'id' in data:
         movie['id'] = data['id']
     else:
         #get the max id from the moviesdata and add 1 to it to have a unique id
         max_id = getMaxId(moviesData)
-        movie['id'] = max_id+1
+        newid = int(max_id)+1
+        movie['id'] = str(newid)
 
     for key in data:
         if key!= 'id':
             movie[key] = data[key]
     moviesData.append(movie)
-
     return moviesData
-
 
 ###
     ## updateMovie() function will allow user to update an existing row in the dataset.

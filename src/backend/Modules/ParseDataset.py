@@ -19,7 +19,6 @@ def createListofItems(row,split):
 ###
 
 def buildMovieDict(line):
-    print(line)
     row =[]
     word =''
     singleColumnData = False
