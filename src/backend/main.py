@@ -128,18 +128,19 @@ def analyticsGenre():
     responseObject = AnalyticsFeatures.analyticsGrenre(search_year, moviesData)
     return jsonify(responseObject)
 
-@app.route('/importData', methods =['POST'])
+@app.route('/importData', methods =['GET'])
 def importData():
-    data = request.data
+    #data = request.data
+    file_name = request.args.get('file_name')
     global moviesData
-    moviesData = ImportExport.importData(eval(data))
-    return jsonify({'Imported new data'})
+    moviesData = ImportExport.importData(file_name)
+    return jsonify({'status':'Imported data'})
 
 @app.route('/exportData', methods =['GET'])
 def exportData():
     file_name = request.args.get('file_name')
     ImportExport.exportData(file_name, moviesData)
-    return jsonify({'Exported data'})
+    return jsonify({'status':'Exported data'})
 
 if __name__ == '__main__':
     app.run()

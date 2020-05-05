@@ -56,7 +56,7 @@ function loadWorstMoviesList() {
   };
   xhttp.open(
     "GET",
-    "http://localhost:5000/searchFlopMovies?search_year=2000",
+    "http://localhost:5000/searchFlopMovies?search_year=2015",
     true
   );
   xhttp.send();
