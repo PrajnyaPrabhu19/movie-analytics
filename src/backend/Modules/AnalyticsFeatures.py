@@ -237,3 +237,119 @@ def analyticsGrenre(year, moviesData):
     responseObject = sorted(responseObject, key=lambda i: i['total_amt'], reverse=True)
     record = {"RECORDS":responseObject}
     return record
+
+def actorGenres(actorName, moviesData):
+    responseObject = []
+    action = 0
+    thriller = 0
+    adventure = 0
+    fiction = 0
+    drama = 0
+    fantasy = 0
+    crime = 0
+    comedy = 0
+    animation = 0
+    family = 0
+    mystery = 0
+    romance = 0
+
+    for movie in moviesData:
+        if actorName in movie['cast']:
+            if 'Action' in movie['genres']:
+                action += 1
+            if 'Thriller' in movie['genres']:
+                thriller += 1
+            if 'Adventure' in movie['genres']:
+                adventure += 1
+            if 'Science Fiction' in movie['genres']:
+                fiction += 1
+            if 'Drama' in movie['genres']:
+                drama += 1
+            if 'Fantasy' in movie['genres']:
+                fantasy += 1
+            if 'Crime' in movie['genres']:
+                crime += 1
+            if 'Comedy' in movie['genres']:
+                comedy += 1
+            if 'Animation' in movie['genres']:
+                animation += 1
+            if 'Family' in movie['genres']:
+                family += 1
+            if 'Mystery' in movie['genres']:
+                mystery += 1
+            if 'Romance' in movie['genres']:
+                romance += 1
+
+    responseObject.append({"genre_type": "Action", "total": action})
+    responseObject.append({"genre_type": "Thriller", "total": thriller})
+    responseObject.append({"genre_type": "Adventure", "total": adventure})
+    responseObject.append({"genre_type": "Fiction", "total": fiction})
+    responseObject.append({"genre_type": "Drama", "total": drama})
+    responseObject.append({"genre_type": "Fantasy", "total": fantasy})
+    responseObject.append({"genre_type": "Crime", "total": crime})
+    responseObject.append({"genre_type": "Comedy", "total": comedy})
+    responseObject.append({"genre_type": "Animation", "total": animation})
+    responseObject.append({"genre_type": "Family", "total": family})
+    responseObject.append({"genre_type": "Mystery", "total": mystery})
+    responseObject.append({"genre_type": "Romance", "total": romance})
+    responseObject = sorted(responseObject, key=lambda i: i['total'], reverse=True)
+    record = {"RECORDS": responseObject}
+    return record
+
+def directorGenres(dirName, moviesData):
+    responseObject = []
+    action = 0
+    thriller = 0
+    adventure = 0
+    fiction = 0
+    drama = 0
+    fantasy = 0
+    crime = 0
+    comedy = 0
+    animation = 0
+    family = 0
+    mystery = 0
+    romance = 0
+
+    for movie in moviesData:
+        if dirName == movie['director']:
+            if 'Action' in movie['genres']:
+                action += 1
+            if 'Thriller' in movie['genres']:
+                thriller += 1
+            if 'Adventure' in movie['genres']:
+                adventure += 1
+            if 'Science Fiction' in movie['genres']:
+                fiction += 1
+            if 'Drama' in movie['genres']:
+                drama += 1
+            if 'Fantasy' in movie['genres']:
+                fantasy += 1
+            if 'Crime' in movie['genres']:
+                crime += 1
+            if 'Comedy' in movie['genres']:
+                comedy += 1
+            if 'Animation' in movie['genres']:
+                animation += 1
+            if 'Family' in movie['genres']:
+                family += 1
+            if 'Mystery' in movie['genres']:
+                mystery += 1
+            if 'Romance' in movie['genres']:
+                romance += 1
+
+    responseObject.append({"genre_type": "Action", "total": action})
+    responseObject.append({"genre_type": "Thriller", "total": thriller})
+    responseObject.append({"genre_type": "Adventure", "total": adventure})
+    responseObject.append({"genre_type": "Fiction", "total": fiction})
+    responseObject.append({"genre_type": "Drama", "total": drama})
+    responseObject.append({"genre_type": "Fantasy", "total": fantasy})
+    responseObject.append({"genre_type": "Crime", "total": crime})
+    responseObject.append({"genre_type": "Comedy", "total": comedy})
+    responseObject.append({"genre_type": "Animation", "total": animation})
+    responseObject.append({"genre_type": "Family", "total": family})
+    responseObject.append({"genre_type": "Mystery", "total": mystery})
+    responseObject.append({"genre_type": "Romance", "total": romance})
+    responseObject = sorted(responseObject, key=lambda i: i['total'], reverse=True)
+    record = {"RECORDS": responseObject}
+    return record

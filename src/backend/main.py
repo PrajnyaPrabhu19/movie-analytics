@@ -25,7 +25,6 @@ moviesData = ParseDataset.parseCSV(filePath)
 topDirectors ={}
 topActors={}
 
-
 @app.route('/headers', methods=['GET'])
 def getData():
     response = {
@@ -194,6 +193,18 @@ def topActor():
     topActors = sorted(topActors.items(), key=lambda x: x[1], reverse=True)
     topActors = dict((topActors)[0: 10])
     return jsonify(topActors)
+
+@app.route('/actorGenres', methods =['GET'])
+def actorGenres():
+    search_actor = request.args.get('search_actor')
+    responseObject = AnalyticsFeatures.actorGenres(search_actor, moviesData)
+    return jsonify(responseObject)
+
+@app.route('/directorGenres', methods =['GET'])
+def directorGenres():
+    search_director = request.args.get('search_director')
+    responseObject = AnalyticsFeatures.directorGenres(search_director, moviesData)
+    return jsonify(responseObject)
 
 getTopPerson()
 
