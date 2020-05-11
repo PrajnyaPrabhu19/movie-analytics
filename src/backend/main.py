@@ -181,20 +181,21 @@ def getTopPerson():
             else:
                 topActors.update({actor:1})
 
-
+@app.route('/getTopDirectors', methods =['GET'])
 def topDirector():
     global topDirectors
     topDirectors = sorted(topDirectors.items(), key=lambda x: x[1], reverse=True)
     topDirectors = dict((topDirectors)[0: 10])
+    return jsonify(topDirectors)
 
+@app.route('/getTopActors', methods =['GET'])
 def topActor():
     global topActors
     topActors = sorted(topActors.items(), key=lambda x: x[1], reverse=True)
     topActors = dict((topActors)[0: 10])
+    return jsonify(topActors)
 
 getTopPerson()
-topDirector()
-topActor()
 
 if __name__ == '__main__':
     app.run()
