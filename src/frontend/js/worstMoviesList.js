@@ -63,7 +63,7 @@ function loadWorstMoviesList() {
 }
 
 function load3WorstMovies() {
-  let year = $("#yearDropdown").val();
+  let year = $("#yearDropdown1").val();
 
   var xhr3 = new XMLHttpRequest();
   xhr3.onreadystatechange = function () {

@@ -1,11 +1,11 @@
 function load3BestMovies() {
-  let year = $("#yearDropdown").val();
+  let year = $("#yearDropdown2").val();
 
   var xhr3 = new XMLHttpRequest();
   xhr3.onreadystatechange = function () {
     if (xhr3.readyState == XMLHttpRequest.DONE) {
       data = JSON.parse(xhr3.responseText);
-      $("#worstMovieModalList").empty();
+      $("#bestMovieModalList").empty();
       for (var i = 0; i < 3; i++) {
         let imdb_id = data[i]["imdb_id"];
         let movie_title = data[i]["original_title"];
@@ -22,7 +22,7 @@ function load3BestMovies() {
             ' <span class="badge badge-primary">' + genre_list[j] + "</span>";
         }
 
-        $("#worstMovieModalList").append(
+        $("#bestMovieModalList").append(
           '<div class="row ml-2 mt-1"> <div class="card  text-dark bg-light pt-1 pb-1 pl-1 pr-1 mb-1" style="width: 30rem;">\
       \
               <div class="media">\
