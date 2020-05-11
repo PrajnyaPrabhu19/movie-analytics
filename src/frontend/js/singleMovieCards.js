@@ -22,7 +22,7 @@ function singelMovieCards() {
         }
 
         $("#wmovie").append(
-          '<div class="media">\
+          '<div class="row"><div class="media">\
              \
                 <img src="http://img.omdbapi.com/?i=' +
             imdb_id +
@@ -41,13 +41,14 @@ function singelMovieCards() {
                 <p class="card-text"> Tagline:\
                  ' +
             tagline +
-            "</p>\
+            '</p>\
               </div>\
-              </div>\
+              </div></div>  \
   \
             \
+            <button class="col-md-4 offset-4 btn btn-primary" data-toggle="modal" data-target="#worstMoviesModal" > More </button> \
   \
-         "
+         '
         );
       }
     }
@@ -86,7 +87,7 @@ function singelMovieCards() {
         }
 
         $("#bmovie").append(
-          '<div class="media">\
+          '<div class="row"><div class="media">\
              \
                 <img src="http://img.omdbapi.com/?i=' +
             imdb_id +
@@ -105,13 +106,14 @@ function singelMovieCards() {
                 <p class="card-text"> Tagline:\
                  ' +
             tagline +
-            "</p>\
+            '</p>\
               </div>\
-              </div>\
+              </div></div>\
   \
             \
   \
-         "
+  <button class="col-md-4 offset-4 btn btn-primary" data-toggle="modal" data-target="#bestMoviesModal" > More </button> \
+         '
         );
       }
     }

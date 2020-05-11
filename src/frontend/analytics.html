@@ -31,6 +31,55 @@
   </head>
 
   <body>
+    <div id="worstMoviesModal" class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Worst Movies</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+  
+          <div class="modal-body">
+            <select id="yearDropdown" class="col-md-4">
+            </select>
+            <button type="button" class="btn btn-primary col-md-4 offset-3" onClick="load3WorstMovies();">GO</button>
+            <div id="worstMovieModalList" class="row">
+  
+            </div>
+          </div>
+          <div class="modal-footer" >
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  <div id="bestMoviesModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Best Movies</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <select id="yearDropdown" class="col-md-4">
+          </select>
+          <button type="button" class="btn btn-primary col-md-4 offset-3" onClick="load3BestMovies();">GO</button>
+          <div id="worstMovieModalList" class="row">
+
+          </div>
+        </div>
+        <div class="modal-footer" >
+         
+        </div>
+      </div>
+    </div>
+  </div>
+
     <div id="content">
       <header class="ml-5">
         <div class="container  fill movie-banner">
@@ -114,7 +163,7 @@
               <h2>Flop Movies of 2015</h2>
             </div>
             <div  id="wmovieList" class="card-body">
-              
+          
             </div>
           </div>
           </span>
@@ -123,23 +172,29 @@
       
         <script src="https://d3js.org/d3.v5.min.js"></script>
         <script src="js/worstMoviesList.js"></script>
+        <script src="js/bestMovies.js"></script>
         <script src="js/budgetVersusRevenue.js"></script>
         <script src="js/singleMovieCards.js"></script>
         <script src="js/bestGenres.js"></script>
+        <script src="js/makeHttpRequests.js"></script>
+        <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
+        <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+        <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     
     <script>
-      singelMovieCards();
+
+    singelMovieCards();
     loadWorstMoviesList();
     loadBudgetVsRevenue();
     loadbestGenres()
+    
+    for (i = 1999; i <= 2015; i++) {
+      $("#yearDropdown").append(
+        "<option value='" + i + '\' href="#">' + i + "</option>"
+      );
+    }
     </script>
 
 
-      
-
-
-    <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
-    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>
 </html>
