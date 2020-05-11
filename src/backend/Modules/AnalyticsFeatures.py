@@ -366,3 +366,39 @@ def analyticsPopularity(year,moviesData):
 
     return return_object
 
+
+def updateActorList(year, revenue, actorList):
+    updated =False
+    for item in actorList:
+        if item['year'] == year:
+            new_rev = item['revenue'] + revenue
+            item.update({'revenue':new_rev})
+            updated=True
+            break
+    if updated==False:
+        actorList.append({'year':year,'revenue':revenue})
+    return actorList
+
+def actorTrajectory(actor, moviesData):
+    actorMovieList =[]
+    for movie in moviesData:
+        if actor in movie['cast']:
+            rel_year = movie['release_year']
+            revenue = float(movie['revenue'])
+            if revenue != 0:
+                actorMovieList = updateActorList(rel_year, revenue, actorMovieList)
+
+    actorMovieList = sorted(actorMovieList, key=lambda i: i['year'], reverse=False)
+    return actorMovieList
+
+def directorTrajectory(director, moviesData):
+    directorList =[]
+    for movie in moviesData:
+        if director == movie['director']:
+            rel_year = movie['release_year']
+            revenue = float(movie['revenue'])
+            if revenue !=0:
+                directorList = updateActorList(rel_year, revenue, directorList)
+
+    directorList = sorted(directorList, key=lambda i: i['year'], reverse=False)
+    return directorList

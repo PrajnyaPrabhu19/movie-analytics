@@ -200,6 +200,7 @@ def topActor():
     topActors = dict((topActors)[0: 10])
     return jsonify(topActors)
 
+<<<<<<< Updated upstream
 @app.route('/actorGenres', methods =['GET'])
 def actorGenres():
     search_actor = request.args.get('search_actor')
@@ -211,6 +212,20 @@ def directorGenres():
     search_director = request.args.get('search_director')
     responseObject = AnalyticsFeatures.directorGenres(search_director, moviesData)
     return jsonify(responseObject)
+=======
+@app.route('/ActorTrajectory', methods =['GET'])
+def getActorTrajectory():
+    actor = request.args.get('actor')
+    response = AnalyticsFeatures.actorTrajectory(actor, moviesData)
+    return jsonify(response)
+
+@app.route('/DirectorTrajectory', methods =['GET'])
+def getDirectorTrajectory():
+    director = request.args.get('director')
+    response = AnalyticsFeatures.directorTrajectory(director, moviesData)
+    return jsonify(response)
+
+>>>>>>> Stashed changes
 
 getTopPerson()
 
