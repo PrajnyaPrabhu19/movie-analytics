@@ -238,6 +238,7 @@ def analyticsGrenre(year, moviesData):
     record = {"RECORDS":responseObject}
     return record
 
+
 def actorGenres(actorName, moviesData):
     responseObject = []
     action = 0
@@ -353,3 +354,15 @@ def directorGenres(dirName, moviesData):
     responseObject = sorted(responseObject, key=lambda i: i['total'], reverse=True)
     record = {"RECORDS": responseObject}
     return record
+
+def analyticsPopularity(year,moviesData):
+
+    return_object = []
+
+    for movie in moviesData:
+
+        if movie['release_year'] == year and len(movie['genres']) > 0:
+            return_object.append({'name':movie['original_title'] , 'title': movie['original_title'], 'group': movie['genres'][0], 'value':movie['popularity']})
+
+    return return_object
+

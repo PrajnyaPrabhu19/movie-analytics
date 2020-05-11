@@ -148,6 +148,12 @@ def exportData():
     ImportExport.exportData(file_name, moviesData)
     return jsonify({'status':'Exported data'})
 
+@app.route('/popularityBubble', methods =['GET'])
+def popularityBubble():
+    year = request.args.get('year')
+    response = AnalyticsFeatures.analyticsPopularity(year, moviesData)
+    return jsonify(response)
+
 
 @app.route('/exportList', methods =['GET'])
 def exportList():
