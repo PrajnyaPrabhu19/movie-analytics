@@ -4,6 +4,10 @@ from Modules import SearchFeatures
 from Modules import DatasetOperations
 from Modules import AnalyticsFeatures
 from Modules import ImportExport
+from os import listdir
+from os.path import isfile, join
+from operator import itemgetter
+from collections import OrderedDict
 
 from flask import Flask
 from flask import request
@@ -18,6 +22,9 @@ CORS(app)
 
 filePath = os.path.abspath(os.path.dirname(os.path.abspath(__file__))) + "/Data/tmdb_movies.csv"
 moviesData = ParseDataset.parseCSV(filePath)
+topDirectors ={}
+topActors={}
+
 
 @app.route('/headers', methods=['GET'])
 def getData():
@@ -145,8 +152,6 @@ def exportData():
 
 @app.route('/exportList', methods =['GET'])
 def exportList():
-    from os import listdir
-    from os.path import isfile, join
     filepath = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "\\backend\\Data\\"
     #onlyfiles = [{f:f} for f in listdir(filepath) if isfile(join(filepath,f))]
     resObject = {}
@@ -156,6 +161,41 @@ def exportList():
 
     return jsonify(resObject)
 
+def getTopPerson():
+    global topDirectors
+    global topActors
+    for movie in moviesData:
+        director = movie['director']
+        if director in topDirectors:
+            if director != '':
+                count = topDirectors.get(director)
+                topDirectors.update({director:count+1})
+        else:
+            topDirectors.update({director:1})
+
+        actorList = movie['cast']
+        for actor in actorList:
+            if actor in topActors:
+                count = topActors.get(actor)
+                topActors.update({actor:count+1})
+            else:
+                topActors.update({actor:1})
+
+
+def topDirector():
+    global topDirectors
+    topDirectors = sorted(topDirectors.items(), key=lambda x: x[1], reverse=True)
+    topDirectors = dict((topDirectors)[0: 10])
+
+def topActor():
+    global topActors
+    topActors = sorted(topActors.items(), key=lambda x: x[1], reverse=True)
+    topActors = dict((topActors)[0: 10])
+
+getTopPerson()
+topDirector()
+topActor()
 
 if __name__ == '__main__':
     app.run()
+
