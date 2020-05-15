@@ -3,7 +3,7 @@ function loadWorstMoviesList() {
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       // Typical action to be performed when the document is ready:
-      data = JSON.parse(xhttp.responseText);
+      data = JSON.parse(xhttp.responseText)["data"];
 
       for (var i = 0; i < data.length; i++) {
         let imdb_id = data[i]["imdb_id"];
@@ -68,7 +68,7 @@ function load3WorstMovies() {
   var xhr3 = new XMLHttpRequest();
   xhr3.onreadystatechange = function () {
     if (xhr3.readyState == XMLHttpRequest.DONE) {
-      data = JSON.parse(xhr3.responseText);
+      data = JSON.parse(xhr3.responseText)["data"];
       $("#worstMovieModalList").empty();
       for (var i = 0; i < 3; i++) {
         let imdb_id = data[i]["imdb_id"];

@@ -3,7 +3,7 @@ function singelMovieCards() {
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       // Typical action to be performed when the document is ready:
-      data = JSON.parse(xhttp.responseText);
+      data = JSON.parse(xhttp.responseText)["data"];
 
       for (var i = 0; i < data.length; i++) {
         let imdb_id = data[i]["imdb_id"];
@@ -65,7 +65,7 @@ function singelMovieCards() {
   xhttp1.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       // Typical action to be performed when the document is ready:
-      movies = JSON.parse(xhttp1.responseText);
+      movies = JSON.parse(xhttp1.responseText)["data"];
 
       for (var i = 0; i < movies.length; i++) {
         let imdb_id = movies[i]["imdb_id"];

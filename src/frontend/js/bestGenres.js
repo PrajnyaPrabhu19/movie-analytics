@@ -11,7 +11,7 @@ function loadbestGenres() {
 
   d3.json("http://localhost:5000/analyticsGrenre?search_year=")
     .then((data) => {
-      data = data.RECORDS;
+      data = data["data"].RECORDS;
 
       x.domain(data.map((d) => d.genre_type));
       y.domain([0, d3.max(data, (d) => d.total_amt)]);

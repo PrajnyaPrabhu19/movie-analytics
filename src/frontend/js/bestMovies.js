@@ -4,7 +4,7 @@ function load3BestMovies() {
   var xhr3 = new XMLHttpRequest();
   xhr3.onreadystatechange = function () {
     if (xhr3.readyState == XMLHttpRequest.DONE) {
-      data = JSON.parse(xhr3.responseText);
+      data = JSON.parse(xhr3.responseText)["data"];
       $("#bestMovieModalList").empty();
       for (var i = 0; i < 3; i++) {
         let imdb_id = data[i]["imdb_id"];

@@ -6,7 +6,7 @@ function loadBudgetVsRevenue() {
       // Typical action to be performed when the document is ready:
       data = JSON.parse(xhttp.responseText);
 
-      models = data.map((i) => {
+      models = data["data"].map((i) => {
         i.year = i.year;
         return i;
       });

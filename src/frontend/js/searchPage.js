@@ -32,7 +32,7 @@ function importFunctionality() {
   xhttp2.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       // Typical action to be performed when the document is ready:
-      data = JSON.parse(xhttp2.responseText);
+      data = JSON.parse(xhttp2.responseText)["data"];
       console.log(data);
       go();
     }
@@ -44,12 +44,12 @@ function importFunctionality() {
 function exportFunctionality() {
   let fileName = prompt();
   let url = "http://localhost:5000/exportData?file_name=" + fileName;
-  //console.log(args);
+  console.log(url);
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       // Typical action to be performed when the document is ready:
-      data = JSON.parse(xhttp.responseText);
+      data = JSON.parse(xhttp.responseText)["data"];
       console.log(data);
     }
   };
