@@ -1,5 +1,17 @@
 import os
 from Modules import ParseDataset
+import time
+
+def timer(func):
+    def timer(*args, **kwargs):
+        start_time = time.time()
+        item = func(*args, **kwargs)
+        end_time = time.time()
+        item = {'request_time':end_time - start_time,'data':item}
+        print(func.__name__+" took --- %s seconds ---" % (end_time - start_time))
+        return item
+    return timer
+
 ###
     ## This file contains methods to support import/export functionality
 ###
@@ -10,6 +22,7 @@ from Modules import ParseDataset
     ## are passed in as a parameter and converted to a single '|' separated string.
     ## The fields include cast, keywords, genres, and production_companies
 ###
+
 def createString(field_data):
     try:
         if type(field_data) == list:
@@ -25,6 +38,7 @@ def createString(field_data):
     ## importData function returns a new moviesData list.
     ## This function takes a .csv filename as user input and loads that data into moviesData
 ##
+
 def importData(filename):
     filepath = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/Data/" + filename
     moviesData = ParseDataset.parseCSV(filepath)
@@ -36,6 +50,7 @@ def importData(filename):
     ## This function takes a .csv filename from user input and converts the current moviesData
     ## to csv format and loads it into 'filename.csv'.
 ##
+@timer
 def exportData(filename, moviesData):
     row = ''
     filepath = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/Data/" + filename
@@ -60,3 +75,4 @@ def exportData(filename, moviesData):
             f.write(row)
             row = ''
     f.close()
+    return 'Success'

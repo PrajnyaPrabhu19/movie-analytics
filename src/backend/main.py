@@ -14,6 +14,7 @@ from flask import request
 from flask_cors import CORS
 from flask import jsonify
 
+
 import json
 
 app = Flask(__name__)
@@ -24,6 +25,7 @@ filePath = os.path.abspath(os.path.dirname(os.path.abspath(__file__))) + "/Data/
 moviesData = ParseDataset.parseCSV(filePath)
 topDirectors ={}
 topActors={}
+
 
 @app.route('/headers', methods=['GET'])
 def getData():
@@ -77,7 +79,7 @@ def FlopMovies():
     # Get all the parameters from the URL string
     search_year = request.args.get('search_year')
     responseObject = AnalyticsFeatures.searchFlopMovies(search_year, moviesData)
-    return jsonify(responseObject[-10:])
+    return jsonify(responseObject)
 
 @app.route('/highestGrossingMovie', methods=['GET'])
 def grossMovie():
@@ -162,7 +164,10 @@ def exportList():
     resObject = {}
     for file in listdir(filepath):
         if isfile(join(filepath, file)):
-            resObject[file]=file
+                resObject[file]=file
+
+    print(resObject)
+
 
     return jsonify(resObject)
 

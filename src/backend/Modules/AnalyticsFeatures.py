@@ -1,6 +1,20 @@
 ###
 ##
 ###
+import time
+
+
+def timer(func):
+    def timer(*args, **kwargs):
+        start_time = time.time()
+        item = func(*args, **kwargs)
+        end_time = time.time()
+        item = {'request_time':end_time - start_time,'data':item}
+        print(func.__name__+" took --- %s seconds ---" % (end_time - start_time))
+        return item
+    return timer
+
+@timer
 def moviesAggregate(moviesData):
     response = []
     myMin = 1960
@@ -86,6 +100,7 @@ def moviesAggregate(moviesData):
 ###
 ## searchFlopMovies function returns list of all movies whose budget is more than revenue
 ###
+@timer
 def searchFlopMovies(year, moviesData):
     responseObject = []
     if year == '':
@@ -119,6 +134,7 @@ def searchFlopMovies(year, moviesData):
 ###
 ## highestGrossingMovie function returns the highest grossing movie (revenue - budget) of the year
 ###
+@timer
 def highestGrossingMovie(year, moviesData):
     responseObject = []
     _grossIncome = 0
@@ -151,6 +167,7 @@ def highestGrossingMovie(year, moviesData):
 
 
 ####
+@timer
 def analyticsGrenre(year, moviesData):
     responseObject = []
     action = 0
@@ -240,7 +257,7 @@ def analyticsGrenre(year, moviesData):
     record = {"RECORDS": responseObject}
     return record
 
-
+@timer
 def actorGenres(actorName, moviesData):
 
     genres =['action',
@@ -278,7 +295,7 @@ def actorGenres(actorName, moviesData):
 
     return final_response
 
-
+@timer
 def directorGenres(dirName, moviesData):
 
     genres =['action',
@@ -316,7 +333,7 @@ def directorGenres(dirName, moviesData):
 
     return final_response
 
-
+@timer
 def analyticsPopularity(year, moviesData):
     return_object = []
 
@@ -329,7 +346,7 @@ def analyticsPopularity(year, moviesData):
 
     return return_object
 
-
+@timer
 def updateActorList(year, revenue, actorList):
     updated = False
     for item in actorList:
@@ -342,7 +359,7 @@ def updateActorList(year, revenue, actorList):
         actorList.append({'year': year, 'revenue': revenue})
     return actorList
 
-
+@timer
 def actorTrajectory(actor, moviesData):
     actorMovieList = []
     for movie in moviesData:
@@ -355,7 +372,7 @@ def actorTrajectory(actor, moviesData):
     actorMovieList = sorted(actorMovieList, key=lambda i: i['year'], reverse=False)
     return actorMovieList
 
-
+@timer
 def directorTrajectory(director, moviesData):
     directorList = []
     for movie in moviesData:

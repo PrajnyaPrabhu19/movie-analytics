@@ -8,6 +8,20 @@
     ## This is a generic function which will accept a search_field whose value is numeric and returns data whise values satisfy the
     ## search_inequality with the search_query
 ###
+import time
+
+def timer(func):
+    def timer(*args, **kwargs):
+        start_time = time.time()
+        item = func(*args, **kwargs)
+        end_time = time.time()
+        item = {'request_time':end_time - start_time,'data':item}
+        print(func.__name__+" took --- %s seconds ---" % (end_time - start_time))
+        return item
+    return timer
+
+
+@timer
 def fetchMoviesByNumericSearch(search_field, search_query, search_inequality, moviesData):
     # Code for operations
     operations = {
@@ -32,9 +46,9 @@ def fetchMoviesByNumericSearch(search_field, search_query, search_inequality, mo
     ## fetchMoviesByTextSearchfunction returns all movies whose search_field matches the search_query
     ## This is a generic function which handles text search_field
 ###
+@timer
 def fetchMoviesByTextSearch(search_field, search_query, moviesData):
     responseObject = []
-
     for movie in moviesData:
         # check if the search field is genre as it is a list
         if type(movie[search_field])==list:
@@ -55,6 +69,7 @@ def fetchMoviesByTextSearch(search_field, search_query, moviesData):
     ## highestGrossingMovie function returns the highest grossing movie (revenue - budget) of the year
 ###
 ## THIS FUNCTION IS REWRITTEN IN ANALYTICSFEATUIRES.PY FILE WHERE WE RETURN ONE MOVIE ITEM OR TOP 10 MOVIES
+@timer
 def highestGrossingMovie(year, moviesData):
     responseObject = ""
     _grossIncome = 0
@@ -71,6 +86,7 @@ def highestGrossingMovie(year, moviesData):
 ###
     ## highestGrossingDirector function returns the highest grossing director (revenue - budget) of the year
 ###
+@timer
 def highestGrossingDirector(year, moviesData):
     responseObject = ""
     _movieProfit = 0
@@ -83,6 +99,7 @@ def highestGrossingDirector(year, moviesData):
                 responseObject = movie['director']
     return responseObject
 
+@timer
 def highestGrossingActorYear(year, moviesData):
     actorDict = {}
     responseObject = ""
