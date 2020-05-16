@@ -461,3 +461,4 @@ def directorTrajectory(director, moviesData):
 
     directorList = sorted(directorList, key=lambda i: i['year'], reverse=False)
     return directorList
+
