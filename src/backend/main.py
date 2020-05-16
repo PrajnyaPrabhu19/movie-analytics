@@ -26,7 +26,6 @@ moviesData = ParseDataset.parseCSV(filePath)
 topDirectors ={}
 topActors={}
 
-
 @app.route('/headers', methods=['GET'])
 def getData():
     response = {
@@ -167,8 +166,6 @@ def exportList():
                 resObject[file]=file
 
     print(resObject)
-
-
     return jsonify(resObject)
 
 def getTopPerson():
