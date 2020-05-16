@@ -108,6 +108,7 @@
     </div>
   </div>
 
+
     <div id="content">
       <header class="ml-5">
         <div class="container  fill movie-banner">
@@ -220,6 +221,24 @@
       </div>
       
       </div>
+
+      <div class="row">
+        <div class="card">
+         <div class="card-header"><div class="row align-items-center"></dv> <h2>Director Career Trajectory  </h2> <div class="col-12 col-md text-left" id="directorDropDown"></div> </div>  </div>
+          <div class="card-body"> <div id="chart" style="width:1200px; height:700px;"></div> 
+        </div></div>
+        
+
+      </div>
+
+      <div class="row">
+        <div class="card">
+         <div class="card-header"><div class="row align-items-center"></dv> <h2>Actor Career Trajectory  </h2> <div class="col-12 col-md text-left" id="actorDropDown"></div> </div>  </div>
+          <div class="card-body"> <div id="chart1" style="width:1200px; height:700px;"></div> 
+        </div></div>
+        
+
+      </div>
       
         <script src="https://d3js.org/d3.v5.min.js"></script>
         <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
@@ -229,11 +248,15 @@
         <script src="js/budgetVersusRevenue.js"></script>
         <script src="js/singleMovieCards.js"></script>
         <script src="js/bestGenres.js"></script>
-        <script src="js/makeHttpRequests.js"></script>
         <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
         <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
         <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    
+      
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"> </script>
+    <script src="js/directorLineChart.js"></script>
+    <script src="js/actorLineChart.js"></script>
+
     <script>
 
     singelMovieCards();
@@ -298,6 +321,69 @@
       xhr5.send();
 
 
+////////////////////////////////////Linegraph
+    // Visualization API with the Line chart package.
+    generateDirector("Woody Allen")
+    generateActor("Robert De Niro")
+
+
+    var s = $("<select id='directorSelector'/>");
+    var xhttpA = new XMLHttpRequest();
+      xhttpA.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          // Typical action to be performed when the document is ready:
+          console.log(xhttpA.responseText)
+          data = JSON.parse(xhttpA.responseText);
+
+          console.log(Object.keys(data));
+          for (var val in Object.keys(data)) {
+            $("<option />", {
+              text: Object.keys(data)[val],
+              value: data[Object.keys(data)[val]],
+            }).appendTo(s);
+          }
+
+          s.appendTo("#directorDropDown");
+
+          $("#directorSelector").change(function () {
+            searchField = this.options[this.selectedIndex].text;
+            console.log(searchField);
+            generateDirector(searchField)
+          });
+        }
+      };
+      xhttpA.open("GET", "http://localhost:5000/getTopDirectors", true);
+      xhttpA.send();
+
+      ////////////////////// Actor line chart
+
+      
+      var s1 = $("<select id='actorSelector'/>");
+    var xhttpB = new XMLHttpRequest();
+      xhttpB.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          // Typical action to be performed when the document is ready:
+          data = JSON.parse(xhttpB.responseText);
+
+          console.log(Object.keys(data));
+          for (var val in Object.keys(data)) {
+            $("<option />", {
+              text: Object.keys(data)[val],
+              value: data[Object.keys(data)[val]],
+            }).appendTo(s1);
+          }
+
+          s1.appendTo("#actorDropDown");
+
+          $("#actorSelector").change(function () {
+            searchField = this.options[this.selectedIndex].text;
+            console.log(searchField);
+            generateActor(searchField)
+          });
+        }
+      };
+      xhttpB.open("GET", "http://localhost:5000/getTopActors", true);
+      xhttpB.send();
 
     </script>
 

@@ -346,7 +346,7 @@ def analyticsPopularity(year, moviesData):
 
     return return_object
 
-@timer
+
 def updateActorList(year, revenue, actorList):
     updated = False
     for item in actorList:

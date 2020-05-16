@@ -186,8 +186,9 @@ def getTopPerson():
         actorList = movie['cast']
         for actor in actorList:
             if actor in topActors:
-                count = topActors.get(actor)
-                topActors.update({actor:count+1})
+                if actor != '':
+                    count = topActors.get(actor)
+                    topActors.update({actor:count+1})
             else:
                 topActors.update({actor:1})
 
