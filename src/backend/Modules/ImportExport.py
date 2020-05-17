@@ -38,7 +38,7 @@ def createString(field_data):
     ## importData function returns a new moviesData list.
     ## This function takes a .csv filename as user input and loads that data into moviesData
 ##
-
+@timer
 def importData(filename):
     filepath = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/Data/" + filename
     moviesData = ParseDataset.parseCSV(filepath)

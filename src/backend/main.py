@@ -14,6 +14,7 @@ from flask import request
 from flask_cors import CORS
 from flask import jsonify
 
+import time
 
 import json
 
@@ -26,6 +27,15 @@ moviesData = ParseDataset.parseCSV(filePath)
 topDirectors ={}
 topActors={}
 
+def timer(func):
+    def timer(*args, **kwargs):
+        start_time = time.time()
+        item = func(*args, **kwargs)
+        end_time = time.time()
+        item = {'request_time':end_time - start_time,'data':item}
+        print(func.__name__+" took --- %s seconds ---" % (end_time - start_time))
+        return item
+    return timer
 
 @app.route('/headers', methods=['GET'])
 def getData():
@@ -136,28 +146,30 @@ def analyticsGenre():
     responseObject = AnalyticsFeatures.analyticsGrenre(search_year, moviesData)
     return jsonify(responseObject)
 
+
 @app.route('/importData', methods =['GET'])
 def importData():
     #data = request.data
     file_name = request.args.get('file_name')
     global moviesData
     moviesData = ImportExport.importData(file_name)
-    return jsonify({'status':'Imported data'})
+    return jsonify({'request_time':moviesData['request_time'],'status':'Imported data'})
 
 @app.route('/exportData', methods =['GET'])
 def exportData():
     file_name = request.args.get('file_name')
-    ImportExport.exportData(file_name, moviesData)
-    return jsonify({'status':'Exported data'})
+    response = ImportExport.exportData(file_name, moviesData)
+    return jsonify({'request_time':response['request_time'], 'status':'Exported data'})
 
-@app.route('/popularityBubble', methods =['GET'])
-def popularityBubble():
-    year = request.args.get('year')
-    response = AnalyticsFeatures.analyticsPopularity(year, moviesData)
-    return jsonify(response)
+# @app.route('/popularityBubble', methods =['GET'])
+# def popularityBubble():
+#     year = request.args.get('year')
+#     response = AnalyticsFeatures.analyticsPopularity(year, moviesData)
+#     return jsonify(response)
 
 
 @app.route('/exportList', methods =['GET'])
+@timer
 def exportList():
     filepath = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "\\backend\\Data\\"
     #onlyfiles = [{f:f} for f in listdir(filepath) if isfile(join(filepath,f))]
@@ -169,7 +181,7 @@ def exportList():
     print(resObject)
 
 
-    return jsonify(resObject)
+    return resObject
 
 def getTopPerson():
     global topDirectors
@@ -194,17 +206,21 @@ def getTopPerson():
 
 @app.route('/getTopDirectors', methods =['GET'])
 def topDirector():
+    start_time = time.time()
     global topDirectors
     topDirectors = sorted(topDirectors.items(), key=lambda x: x[1], reverse=True)
     topDirectors = dict((topDirectors)[0: 10])
-    return jsonify(topDirectors)
+    end_time = time.time()
+    return jsonify({'request_time':(end_time-start_time),'data':topDirectors})
 
 @app.route('/getTopActors', methods =['GET'])
 def topActor():
+    start_time = time.time()
     global topActors
     topActors = sorted(topActors.items(), key=lambda x: x[1], reverse=True)
     topActors = dict((topActors)[0: 10])
-    return jsonify(topActors)
+    end_time = time.time()
+    return jsonify({'request_time':(end_time-start_time),'data':topActors})
 
 @app.route('/actorGenres', methods =['GET'])
 def actorGenres():

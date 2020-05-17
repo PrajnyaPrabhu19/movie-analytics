@@ -332,19 +332,19 @@ def directorGenres(dirName, moviesData):
             final_response['labels'].append(item)
 
     return final_response
-
-@timer
-def analyticsPopularity(year, moviesData):
-    return_object = []
-
-    for movie in moviesData:
-
-        if movie['release_year'] == year and len(movie['genres']) > 0:
-            return_object.append(
-                {'name': movie['original_title'], 'title': movie['original_title'], 'group': movie['genres'][0],
-                 'value': movie['popularity']})
-
-    return return_object
+#
+# @timer
+# def analyticsPopularity(year, moviesData):
+#     return_object = []
+#
+#     for movie in moviesData:
+#
+#         if movie['release_year'] == year and len(movie['genres']) > 0:
+#             return_object.append(
+#                 {'name': movie['original_title'], 'title': movie['original_title'], 'group': movie['genres'][0],
+#                  'value': movie['popularity']})
+#
+#     return return_object
 
 
 def updateActorList(year, revenue, actorList):

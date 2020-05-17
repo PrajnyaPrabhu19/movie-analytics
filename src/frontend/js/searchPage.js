@@ -5,7 +5,7 @@ function exportDropDown() {
       // Typical action to be performed when the document is ready:
       var s = $("<select id='exportSelector'/>");
       s.children().remove();
-      data = JSON.parse(xhttp.responseText);
+      data = JSON.parse(xhttp.responseText)["data"];
 
       console.log(data);
 
