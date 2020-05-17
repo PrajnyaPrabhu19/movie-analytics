@@ -159,3 +159,15 @@ a.article, a.article:hover {
 .bar {
     fill: #0066CC
 }
+
+.img {
+    float:  left;
+    max-width:  500px;
+    max-height: 250px;
+    background-size: cover;
+}
+
+.mySelector {
+    width: 100%;
+    height: auto;
+}
