@@ -217,13 +217,13 @@ def directorGenres():
 @app.route('/ActorTrajectory', methods =['GET'])
 def getActorTrajectory():
     actor = request.args.get('actor')
-    response = AnalyticsFeatures.actorTrajectory(actor, moviesData)
+    response = AnalyticsFeatures.personTrajectory(actor, moviesData)
     return jsonify(response)
 
 @app.route('/DirectorTrajectory', methods =['GET'])
 def getDirectorTrajectory():
     director = request.args.get('director')
-    response = AnalyticsFeatures.directorTrajectory(director, moviesData)
+    response = AnalyticsFeatures.personTrajectory(director, moviesData)
     return jsonify(response)
 
 getTopPerson()

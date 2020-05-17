@@ -9,10 +9,12 @@ def timer(func):
         start_time = time.time()
         item = func(*args, **kwargs)
         end_time = time.time()
-        item = {'request_time':end_time - start_time,'data':item}
-        print(func.__name__+" took --- %s seconds ---" % (end_time - start_time))
+        item = {'request_time': end_time - start_time, 'data': item}
+        print(func.__name__ + " took --- %s seconds ---" % (end_time - start_time))
         return item
+
     return timer
+
 
 @timer
 def moviesAggregate(moviesData):
@@ -96,12 +98,14 @@ def moviesAggregate(moviesData):
     response.append(item8)
     return response
 
+
 ###
-    ## For code optimization and incrementality, we introduce a new dictionary, worstMovies which will store all searched results in it.
-    ## If the query is made for the first time, we iterate over the dataset and store the result in this dictionary.
-    ## If the query made is an already searched analytics, we return from the dictionary which saves computation time.
+## For code optimization and incrementality, we introduce a new dictionary, worstMovies which will store all searched results in it.
+## If the query is made for the first time, we iterate over the dataset and store the result in this dictionary.
+## If the query made is an already searched analytics, we return from the dictionary which saves computation time.
 ###
 worstMovies = {}
+
 
 @timer
 def searchFlopMovies(year, moviesData):
@@ -118,6 +122,7 @@ def searchFlopMovies(year, moviesData):
         else:
             generateFlopMovies(year, moviesData)
             return worstMovies[year]
+
 
 ###
 ## generateFlopMovies function saves the list of all movies whose budget is more than revenue in the worstMovies dictionary
@@ -139,8 +144,8 @@ def generateFlopMovies(year, moviesData):
 
         item['loss'] = minD
         responseObject.append(item)
-        worstMovies.update({'AllTime':responseObject})
-        #return responseObject
+        worstMovies.update({'AllTime': responseObject})
+        # return responseObject
     else:
         for movie in moviesData:
             if movie['release_year'] == year:
@@ -152,16 +157,18 @@ def generateFlopMovies(year, moviesData):
 
         responseObject = sorted(responseObject, key=lambda i: i['loss'], reverse=True)
         responseObject = responseObject[:10]
-        worstMovies.update({year:responseObject})
-        #return responseObject
+        worstMovies.update({year: responseObject})
+        # return responseObject
 
 
 ###
-    ## highestGrossingMovie function returns the highest grossing movie (revenue - budget) of the year
-    ## We maintain a global dictionary to store alreasy searched features
+## highestGrossingMovie function returns the highest grossing movie (revenue - budget) of the year
+## We maintain a global dictionary to store alreasy searched features
 ###
 
-higestGrossingMovies ={}
+higestGrossingMovies = {}
+
+
 @timer
 def highestGrossingMovie(year, moviesData):
     global higestGrossingMovies
@@ -178,8 +185,9 @@ def highestGrossingMovie(year, moviesData):
             generateGrossingMovie(year, moviesData)
             return higestGrossingMovies[year]
 
+
 ###
-    ## This function is called to add a new item to the higestGrossingMovies dictionary
+## This function is called to add a new item to the higestGrossingMovies dictionary
 ###
 def generateGrossingMovie(year, moviesData):
     global higestGrossingMovies
@@ -197,8 +205,8 @@ def generateGrossingMovie(year, moviesData):
                         item = movie
         item['profit'] = maxGross
         responseObject.append(item)
-        higestGrossingMovies.update({'AllTime':responseObject})
-        #return responseObject
+        higestGrossingMovies.update({'AllTime': responseObject})
+        # return responseObject
 
     else:
         for movie in moviesData:
@@ -211,8 +219,8 @@ def generateGrossingMovie(year, moviesData):
 
         responseObject = sorted(responseObject, key=lambda i: i['profit'], reverse=True)
         responseObject = responseObject[:10]
-        higestGrossingMovies.update({year:responseObject})
-        #return responseObject
+        higestGrossingMovies.update({year: responseObject})
+        # return responseObject
 
 
 ####
@@ -308,10 +316,12 @@ def analyticsGrenre(year, moviesData):
 
 
 ###
-    ##
+##
 ###
 
-actorGenreBreakdown ={}
+actorGenreBreakdown = {}
+
+
 @timer
 def actorGenres(actorName, moviesData):
     global actorGenreBreakdown
@@ -324,21 +334,21 @@ def actorGenres(actorName, moviesData):
 
 def addActorGenres(actorName, moviesData):
     global actorGenreBreakdown
-    genres =['action',
-                   'thriller',
-                   'adventure',
-                   'fiction',
-                   'drama',
-                   'fantasy',
-                   'crime',
-                   'comedy',
-                   'animation',
-                   'family',
-                   'mystery',
-                   'romance']
+    genres = ['action',
+              'thriller',
+              'adventure',
+              'fiction',
+              'drama',
+              'fantasy',
+              'crime',
+              'comedy',
+              'animation',
+              'family',
+              'mystery',
+              'romance']
     genreCount = {}
     for item in genres:
-        genreCount[item]=0
+        genreCount[item] = 0
 
     for movie in moviesData:
         if actorName in movie['cast']:
@@ -346,22 +356,23 @@ def addActorGenres(actorName, moviesData):
                 if genre in ''.join(movie['genres']).lower():
                     genreCount[genre] += 1
 
-
-    final_response = {'values':[],
-                               'labels':[],'type':'pie'}
+    final_response = {'values': [],
+                      'labels': [], 'type': 'pie'}
 
     for item in (genreCount.keys()):
-        if genreCount[item]!=0:
+        if genreCount[item] != 0:
             final_response['values'].append(genreCount[item])
             final_response['labels'].append(item)
 
-    actorGenreBreakdown.update({actorName:final_response})
-    #return final_response
+    actorGenreBreakdown.update({actorName: final_response})
+    # return final_response
+
 
 ###
-    ##
+##
 ###
-directorGenresBreakdown ={}
+directorGenresBreakdown = {}
+
 
 @timer
 def directorGenres(dirName, moviesData):
@@ -375,22 +386,21 @@ def directorGenres(dirName, moviesData):
 
 def addDirectorGenres(dirName, moviesData):
     global directorGenresBreakdown
-    genres =['action',
-                   'thriller',
-                   'adventure',
-                   'fiction',
-                   'drama',
-                   'fantasy',
-                   'crime',
-                   'comedy',
-                   'animation',
-                   'family',
-                   'mystery',
-                   'romance']
+    genres = ['action',
+              'thriller',
+              'adventure',
+              'fiction',
+              'drama',
+              'fantasy',
+              'crime',
+              'comedy',
+              'animation',
+              'family',
+              'mystery',
+              'romance']
     genreCount = {}
     for item in genres:
-        genreCount[item]=0
-
+        genreCount[item] = 0
 
     for movie in moviesData:
         if dirName == movie['director']:
@@ -398,17 +408,16 @@ def addDirectorGenres(dirName, moviesData):
                 if genre in ''.join(movie['genres']).lower():
                     genreCount[genre] += 1
 
-
-    final_response = {'values':[],
-                               'labels':[],'type':'pie'}
-
+    final_response = {'values': [],
+                      'labels': [], 'type': 'pie'}
 
     for item in (genreCount.keys()):
-        if genreCount[item]!=0:
+        if genreCount[item] != 0:
             final_response['values'].append(genreCount[item])
             final_response['labels'].append(item)
-    directorGenresBreakdown.update({dirName:final_response})
-    #return final_response
+    directorGenresBreakdown.update({dirName: final_response})
+    # return final_response
+
 
 @timer
 def analyticsPopularity(year, moviesData):
@@ -423,42 +432,49 @@ def analyticsPopularity(year, moviesData):
 
     return return_object
 
+
+###
+## Global variable used for Trajectory optimization
+###
+careerTrajectory = {}
+
 @timer
-def updateActorList(year, revenue, actorList):
+def personTrajectory(name, moviesData):
+    global careerTrajectory
+    if name in careerTrajectory.keys():
+        return careerTrajectory[name]
+    else:
+        updatePersonTrajectory(name, moviesData)
+        return careerTrajectory[name]
+
+
+def updatePersonTrajectory(name, moviesData):
+    global careerTrajectory
+    trajectoryList = []
+    for movie in moviesData:
+        if name in movie['cast']:
+            rel_year = movie['release_year']
+            revenue = float(movie['revenue'])
+            if revenue != 0:
+                trajectoryList = updateTrajectoryList(rel_year, revenue, trajectoryList)
+        elif name == movie['director']:
+            rel_year = movie['release_year']
+            revenue = float(movie['revenue'])
+            if revenue != 0:
+                trajectoryList = updateTrajectoryList(rel_year, revenue, trajectoryList)
+
+    trajectoryList = sorted(trajectoryList, key=lambda i: i['year'], reverse=False)
+    careerTrajectory.update({name: trajectoryList})
+
+
+def updateTrajectoryList(year, revenue, trajList):
     updated = False
-    for item in actorList:
+    for item in trajList:
         if item['year'] == year:
             new_rev = item['revenue'] + revenue
             item.update({'revenue': new_rev})
             updated = True
             break
     if updated == False:
-        actorList.append({'year': year, 'revenue': revenue})
-    return actorList
-
-@timer
-def actorTrajectory(actor, moviesData):
-    actorMovieList = []
-    for movie in moviesData:
-        if actor in movie['cast']:
-            rel_year = movie['release_year']
-            revenue = float(movie['revenue'])
-            if revenue != 0:
-                actorMovieList = updateActorList(rel_year, revenue, actorMovieList)
-
-    actorMovieList = sorted(actorMovieList, key=lambda i: i['year'], reverse=False)
-    return actorMovieList
-
-@timer
-def directorTrajectory(director, moviesData):
-    directorList = []
-    for movie in moviesData:
-        if director == movie['director']:
-            rel_year = movie['release_year']
-            revenue = float(movie['revenue'])
-            if revenue != 0:
-                directorList = updateActorList(rel_year, revenue, directorList)
-
-    directorList = sorted(directorList, key=lambda i: i['year'], reverse=False)
-    return directorList
-
+        trajList.append({'year': year, 'revenue': revenue})
+    return trajList
