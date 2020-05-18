@@ -149,11 +149,13 @@ def analyticsGenre():
 
 @app.route('/importData', methods =['GET'])
 def importData():
+    start_time = time.time()
     #data = request.data
     file_name = request.args.get('file_name')
     global moviesData
     moviesData = ImportExport.importData(file_name)
-    return jsonify({'request_time':moviesData['request_time'],'status':'Imported data'})
+    end_time = time.time()
+    return jsonify({'request_time':end_time-start_time,'status':'Imported data'})
 
 @app.route('/exportData', methods =['GET'])
 def exportData():
@@ -249,5 +251,5 @@ def getDirectorTrajectory():
 getTopPerson()
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port='5001')
 
