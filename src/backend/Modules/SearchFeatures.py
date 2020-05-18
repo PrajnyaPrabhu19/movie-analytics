@@ -21,8 +21,24 @@ def timer(func):
     return timer
 
 
+###
+    ## Global variable to hold recent numeric searches used for optimization
+###
+numericSearches = {}
+
 @timer
+def numericSearch(search_field, search_query, search_inequality, moviesData):
+    global numericSearches
+    key = str(search_field + search_inequality + search_query)
+    if key in numericSearches:
+        return numericSearches[key]
+    else:
+        fetchMoviesByNumericSearch(search_field, search_query, search_inequality, moviesData)
+        return numericSearches[key]
+
+
 def fetchMoviesByNumericSearch(search_field, search_query, search_inequality, moviesData):
+    global numericSearches
     # Code for operations
     operations = {
         '0': '==',
@@ -32,6 +48,7 @@ def fetchMoviesByNumericSearch(search_field, search_query, search_inequality, mo
         '4': '<='
     }
     responseObject = []
+    key = str(search_field + search_inequality + search_query)
 
     for movie in moviesData:
         try:
@@ -40,15 +57,33 @@ def fetchMoviesByNumericSearch(search_field, search_query, search_inequality, mo
 
         except Exception as e:
             print(e)
-    return responseObject
+    #return responseObject
+    numericSearches.update({key: responseObject})
+
+###
+    ## Global variable to hold recent text searches used for optimization
+###
+textSearches = {}
+
+
+@timer
+def textSearch(search_field, search_query, moviesData):
+    global textSearches
+    key = str(search_field + search_query)
+    if key in textSearches:
+        return textSearches[key]
+    else:
+        fetchMoviesByTextSearch(search_field, search_query, moviesData)
+        return textSearches[key]
+
 
 ###
     ## fetchMoviesByTextSearchfunction returns all movies whose search_field matches the search_query
     ## This is a generic function which handles text search_field
 ###
-@timer
 def fetchMoviesByTextSearch(search_field, search_query, moviesData):
     responseObject = []
+    key = str(search_field + search_query)
     for movie in moviesData:
         # check if the search field is genre as it is a list
         if type(movie[search_field])==list:
@@ -58,11 +93,12 @@ def fetchMoviesByTextSearch(search_field, search_query, moviesData):
             if search_query.lower() in stringList.lower():
                 responseObject.append(movie)
         else:
-            if  search_query.lower() in movie[search_field].lower():
+            if search_query.lower() in movie[search_field].lower():
                 responseObject.append(movie)
     #if len(responseObject) ==0:
         #responseObject.append({"message":"No search results for given criteria"})
-    return responseObject
+    #return responseObject
+    textSearches.update({key: responseObject})
 
 
 ###

@@ -60,7 +60,7 @@ def search():
     search_query = request.args.get('search_query')
     search_inequality = request.args.get('search_inequality')
 
-    responseObject = SearchFeatures.fetchMoviesByNumericSearch(search_field,search_query, search_inequality, moviesData)
+    responseObject = SearchFeatures.numericSearch(search_field,search_query, search_inequality, moviesData)
     return jsonify(responseObject)
 
 @app.route('/searchText', methods=['GET'])
@@ -70,7 +70,7 @@ def searchText():
     search_field = request.args.get('search_field')
     search_query = request.args.get('search_query')
 
-    responseObject = SearchFeatures.fetchMoviesByTextSearch(search_field, search_query, moviesData)
+    responseObject = SearchFeatures.textSearch(search_field, search_query, moviesData)
     return jsonify(responseObject)
 
 @app.route('/searchFlopMovies', methods=['GET'])
