@@ -14,7 +14,7 @@ from flask import request
 from flask_cors import CORS
 from flask import jsonify
 
-
+import time
 import json
 
 app = Flask(__name__)
@@ -137,17 +137,23 @@ def analyticsGenre():
 
 @app.route('/importData', methods =['GET'])
 def importData():
+    start_time = time.time()
+
+
     #data = request.data
     file_name = request.args.get('file_name')
     global moviesData
     moviesData = ImportExport.importData(file_name)
-    return jsonify({'status':'Imported data'})
+    end_time = time.time()
+    return jsonify({'request_time':end_time-start_time})
 
 @app.route('/exportData', methods =['GET'])
 def exportData():
+    start_time = time.time()
     file_name = request.args.get('file_name')
     ImportExport.exportData(file_name, moviesData)
-    return jsonify({'status':'Exported data'})
+    end_time = time.time()
+    return jsonify({'request_time':end_time-start_time})
 
 @app.route('/popularityBubble', methods =['GET'])
 def popularityBubble():
@@ -229,4 +235,4 @@ def getDirectorTrajectory():
 getTopPerson()
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0')
