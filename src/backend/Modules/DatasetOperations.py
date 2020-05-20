@@ -42,8 +42,7 @@ def insertMovie(data, moviesData):
     for key in data:
         if key!= 'id':
             movie[key] = data[key]
-    print(movie)
-    moviesData.append(movie)
+    moviesData['data'].append(movie)
     return moviesData
 
 ###

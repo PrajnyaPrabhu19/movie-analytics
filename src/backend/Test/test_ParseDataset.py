@@ -8,13 +8,14 @@ class TestParseCSV(unittest.TestCase):
         filepath = os.path.abspath(os.path.dirname(os.path.abspath(__file__))) + "/Data/test_dataset.csv"
         responseObject = Modules.ParseDataset.parseCSV(filepath)
         size = len(responseObject)
-        # assert the size of response object with 2 as we know that the test dataset has only 2 rows.
+        # assert the size of response object with 3 as we know that the test dataset has only 2 rows.
         self.assertEqual(size, 3, "The data response object should have 2 items")
         invalid_filepath= os.path.abspath(os.path.dirname(os.path.abspath(__file__))) + "/Data/test_dataset_invalid.csv"
         responseObject = Modules.ParseDataset.parseCSV(invalid_filepath)
         size = len(responseObject)
         self.assertEqual(size , 1, "The response object should have one item with error message")
         item = responseObject[0]
+        print(item)
         self.assertEqual(item , "Invalid filepath passed or no such file exists", "Check parseCSV() for invaild filepath")
 
     def test_buildMovieDict(self):

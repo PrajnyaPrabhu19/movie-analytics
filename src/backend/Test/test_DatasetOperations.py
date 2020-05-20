@@ -11,14 +11,14 @@ class TestDatasetOperations(unittest.TestCase):
         global movies
         initial_size = len(movies)
         movies = DatasetOperations.deleteMovie(data, movies)
-        self.assertEqual(len(movies), initial_size-1, "The delete operation failed")
+        self.assertEqual(len(movies['data']), initial_size-1, "The delete operation failed")
 
     def test_insertData(self):
         data = {"id":"423", "popularity":"2", "budget":"3000","revenue": "5000", "original_title":"Test new movie"}
         global movies
-        initial_size = len(movies)
+        initial_size = len(movies['data'])
         movies = DatasetOperations.insertMovie(data, movies)
-        self.assertEqual(len(movies)-1, initial_size, "Insert failed")
+        self.assertEqual(len(movies['data']), initial_size, "Insert failed")
 
 filepath = os.path.abspath(os.path.dirname(os.path.abspath(__file__))) + "/Data/test_dataset.csv"
 movies = Modules.ParseDataset.parseCSV(filepath)

@@ -10,15 +10,15 @@ class TestSearchFeatures(unittest.TestCase):
         search_query = '31'
         search_inequality ='2'
         response = Modules.SearchFeatures.fetchMoviesByNumericSearch(search_field,search_query,search_inequality,movies)
-        self.assertEqual(len(response), 1, "There should be one item satisfying the searched criteria")
-        self.assertEqual(response[0]['original_title'], 'Jurassic World', "The movie name returned by the response should be Jurassic World")
+        self.assertEqual(len(response['data']), 1, "There should be one item satisfying the searched criteria")
+        self.assertEqual(response['data'][0]['original_title'], 'Jurassic World', "The movie name returned by the response should be Jurassic World")
 
 
     def test_fetchMoviesByTextSearch(self):
         search_field='director'
         search_query='George Miller'
         response = Modules.SearchFeatures.fetchMoviesByTextSearch(search_field, search_query, movies)
-        self.assertEqual(response[0]['original_title'], 'Mad Max: Fury Road', "The returned response should contain movie Mad Max: Fury Road")
+        self.assertEqual(response['data'][0]['original_title'], 'Mad Max: Fury Road', "The returned response should contain movie Mad Max: Fury Road")
 
 
 filepath = os.path.abspath(os.path.dirname(os.path.abspath(__file__))) + "/Data/test_dataset.csv"
